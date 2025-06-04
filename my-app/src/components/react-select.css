@@ -1,0 +1,25 @@
+
+.react-select__control {
+  border-radius: 12px;
+  padding: 2px 4px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  min-height: 45px;
+}
+
+.react-select__multi-value {
+  background-color: #e6f5ea;
+  border-radius: 8px;
+  color: #2e7d32;
+}
+
+.react-select__multi-value__label {
+  color: #2e7d32;
+  font-weight: 500;
+  padding: 2px 6px;
+}
+
+.react-select__multi-value__remove {
+  color: #2e7d32;
+  cursor: pointer;
+}

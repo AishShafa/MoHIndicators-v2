@@ -1,0 +1,99 @@
+/* SearchMenu.css */
+
+.custom-form-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #444444b6;
+}
+
+.custom-select {
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23444' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 7l3 3 3-3z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+}
+
+.floating-submit-button {
+  position: sticky;
+  bottom: 0;
+  background-color: #28a745 !important; /* Bootstrap green */
+  color: white;
+  font-weight: 600;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 60px;
+  background-color: #f8f9fa;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  padding: 10px;
+  overflow-x: hidden;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar.open {
+  width: 300px;
+}
+
+.menu-toggle {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar.open {
+    width: 100vw;
+  }
+}
+
+.menu-button {
+  position: fixed;
+  top: 80px; /* adjust depending on your header height */
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+  padding: 15px;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1500;
+}
+
+.sidebar-menu.open {
+  transform: translateX(0);
+}
