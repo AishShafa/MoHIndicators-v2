@@ -1,17 +1,38 @@
-.sidebar-menu {
-  width: 240px;
-  transition: width 0.3s ease;
+/* Layout row container */
+.dashboard-layout {
+  display: flex;
   position: relative;
-  z-index: 1000;
-  overflow: hidden;
+  flex-direction: row;
+  padding-left: 10px;
 }
 
-.sidebar-menu.open {
-  width: 240px;
+/*spacing and font adjustments */
+.filters-title {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: start;
+  
+}
+
+/* Sidebar positioning */
+.sidebar-menu {
+  position: relative; /* Not fixed  */
+  width: 300px;
+  transition: all 0.3s ease;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Sidebar OPEN */
+.sidebar-menu:not(.open) { 
+  width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
 }
 
 .sidebar-menu:not(.open) {
-  width: 60px; /* collapsed width */
+  width: 0px;  /*Collapsable filter sidebar menu of Dasboard (CLOSED) */
 }
 
 /* Hamburger button positioned at sidebar's right edge */
@@ -33,20 +54,16 @@
   z-index: 1100;
 }
 
-.hamburger-line {
-  width: 20px;
-  height: 3px;
-  background-color: #333;
-  margin: 3px 0;
-  border-radius: 1.5px;
-}
 
-.main-content.pushed {
-  margin-left: 240px;
+.main-content.pushed {  /*Total margin of content on page when pushed*/
+  margin-left: 1px;
   transition: margin-left 0.3s ease;
 }
 
+/* Main content always flows next to sidebar */
 .main-content {
-  margin-left: 60px;
-  transition: margin-left 0.3s ease;
+  flex-grow: 1;
+  padding: 20px;
+  text-align: start;
+  transition: all 0.3s ease;
 }

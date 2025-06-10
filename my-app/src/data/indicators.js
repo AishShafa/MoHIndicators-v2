@@ -1,4 +1,5 @@
 // src/data/indicators.js
+//fake hardcoded data for testing
 export const indicators = {
   THE: {
     value: 7.2,

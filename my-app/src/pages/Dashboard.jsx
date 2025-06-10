@@ -1,4 +1,5 @@
 // src/pages/Dashboard.jsx
+//Main Dashboard wh filters
 import { Container, Row, Navbar, Nav, Card } from "react-bootstrap";
 import SearchMenu from "../components/SearchMenu";
 import "../components/Dashboard.css";
@@ -6,7 +7,7 @@ import React, { useState } from "react";
 
 
 export default function Dashboard() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true); /*Menu Open by Default*/
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,18 +28,24 @@ export default function Dashboard() {
       </Navbar>
 
       {/* Hamburger button – fixed and always visible */}
-      <button className="menu-button" onClick={toggleMenu}></button>
+      <button
+       className="menu-button" 
+       onClick={toggleMenu}
+       style={{ left: isMenuOpen ? "295px" : "0px" }} /*width to side of page on menu from open to close*/
+>
+  {isMenuOpen ? "←" : "☰"}
 
-      <Container fluid>
-        <Row>
+       </button>
+
+    
           {/* Sidebar menu */}
-          <div className={`sidebar-menu ${isMenuOpen ? "open" : ""}`}>
-            <SearchMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          </div>
+          <div className="dashboard-layout">
+        <SearchMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
           {/* Main content – pushed if sidebar is open */}
-          <div className={`main-content ${isMenuOpen ? "pushed" : ""}`}>
-            <h3>Results</h3>
+
+        <div className="main-content">
+          <h3>Results</h3>
 
             <Card className="mb-3" style={{ height: "400px" }}>
               <Card.Body className="d-flex justify-content-center align-items-center">
@@ -52,8 +59,7 @@ export default function Dashboard() {
               </Card.Body>
             </Card>
           </div>
-        </Row>
-      </Container>
+      </div>
     </>
   );
 }

@@ -3,7 +3,8 @@
 .custom-form-label {
   font-weight: 600;
   font-size: 13px;
-  color: #444444b6;
+  color: #333;
+  align-items: start;
 }
 
 .custom-select {
@@ -52,8 +53,6 @@
   margin-bottom: 1rem;
   color: #333;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .menu-content {
@@ -66,28 +65,33 @@
   }
 }
 
+
 .menu-button {
-  position: fixed;
-  top: 80px; /* adjust depending on your header height */
-  left: 10px;
+  position: fixed; 
+  align-self: first baseline;        /* Use fixed for consistency */
+  top: 81px;                /* Distance from top of the screen */
+  left: 325px;              /* Width of the sidebar */
   width: 30px;
   height: 30px;
-  background-color: #007bff;
-  border: none;
+  background-color: #fff;
+  border: 1px solid #333;
   border-radius: 5px;
   z-index: 2000;
   cursor: pointer;
+  transition: left 0.3s ease;
 }
 
-.sidebar-menu {
+
+.sidebar-menu { 
   position: fixed;
   top: 0;
   left: 0;
   width: 300px;
-  height: 100vh;
+  height: 1000px;
   background-color: #fff;
-  border-right: 1px solid #ccc;
-  padding: 15px;
+  border-right: 1px solid #ccc;  /*Menu right line*/
+  padding-left: 5px;
+  padding-right: 5px;
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.3s ease;

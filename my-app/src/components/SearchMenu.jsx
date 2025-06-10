@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Select from "react-select";
-import "./SearchMenu.css";
+import "../components/SearchMenu.css";
 import MultiSelect from "../components/MultiSelect";
 
-export default function SearchMenu({ isOpen, toggleMenu }) {
+export default function SearchMenu({ isOpen, toggleMenu }) { /*Filters menu in dashboard*/
 
 
     const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -69,12 +69,10 @@ const metricOptions = [
 
   return (
     <>
-      {/* Toggle Button - shown always */}
-      <button className="menu-button" onClick={toggleMenu} />
 
       {/* Slide-out Menu */}
       <div className={`sidebar-menu ${isOpen ? "open" : ""}`}>
-      <h5>Filters</h5>
+      <h3 classname="filters-title">Filters</h3>
       <Form>
         <Form.Group className="mb-3" controlId="selectIndicator">
         <Form.Label className="custom-form-label">Indicator</Form.Label>
