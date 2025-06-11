@@ -1,0 +1,92 @@
+/* Layout row container */
+.dashboard-layout {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding-left: 10px;
+}
+
+/*spacing and font adjustments */
+.filters-title {
+  color: #333;
+  margin: 0;
+  font-size: 1.9rem;
+  text-align: start;
+  margin-bottom: 20px;
+  margin-left: 10px;  
+  margin-top: 13px;
+}
+
+/* Sidebar positioning */
+.sidebar-menu {
+  position: relative; /* Not fixed  */
+  width: 300px;
+  transition: all 0.3s ease;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Sidebar OPEN */
+.sidebar-menu:not(.open) { 
+  width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+}
+
+.sidebar-menu:not(.open) {
+  width: 0px;  /*Collapsable filter sidebar menu of Dasboard (CLOSED) */
+}
+
+.main-content.pushed {  /*Total margin of content on page when pushed*/
+  margin-left: 1px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Main content always flows next to sidebar */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  text-align: start;
+  transition: all 0.3s ease;
+}
+/* Container for heading + toggles - centered horizontally and vertically */
+.results-header {
+  gap: 1rem; /* space between heading and buttons */
+}
+
+.toggle-group .toggle-btn {
+  border: none;
+  border-bottom: 3px solid rgba(128, 128, 128, 0.486);
+  border-radius: 0;
+  background-color: transparent !important; /* force transparent background */
+  color: #333333b7;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  transition: border-color 0.3s, color 0.3s;
+  box-shadow: none !important; /* remove any shadow */
+}
+
+/* Hover style for unselected buttons */
+
+.toggle-group .toggle-btn:hover {
+  color: #198754;
+  border-bottom-color: #198754;
+}
+/* Active button underline and text color */
+.toggle-group .toggle-btn.active {
+  border-bottom-color: #198754;
+  color: #198754;
+  font-weight: 700;
+  background-color: transparent !important; /* ensure no bg color on active */
+  box-shadow: 1px
+}
+
+/* Remove focus outline */
+.toggle-group .toggle-btn:focus,
+.toggle-group .toggle-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}

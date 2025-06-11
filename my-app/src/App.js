@@ -2,7 +2,7 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import Dashboard from "./pages/Dashboard";  // adjust path if needed
+import Dashboard from "./pages/Dashboard/Dashboard";  // adjust path if needed
 
 
 /*

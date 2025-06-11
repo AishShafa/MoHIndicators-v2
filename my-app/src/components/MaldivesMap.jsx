@@ -1,4 +1,4 @@
-// src/components/MaldivesMap.jsx
+
 import React from "react";
 
 export default function MaldivesMap({ onSelectRegion }) {

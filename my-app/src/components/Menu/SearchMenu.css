@@ -1,4 +1,4 @@
-/* SearchMenu.css */
+
 
 .custom-form-label {
   font-weight: 600;
@@ -69,16 +69,17 @@
 .menu-button {
   position: fixed; 
   align-self: first baseline;        /* Use fixed for consistency */
-  top: 81px;                /* Distance from top of the screen */
+  top: 131px;                /* Distance from top of the screen */
   left: 325px;              /* Width of the sidebar */
   width: 30px;
   height: 30px;
   background-color: #fff;
-  border: 1px solid #333;
+  border: 1px solid #33333379;
   border-radius: 5px;
   z-index: 2000;
   cursor: pointer;
   transition: left 0.3s ease;
+  margin-top: 14px;
 }
 
 

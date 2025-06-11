@@ -1,0 +1,33 @@
+
+
+.custom-table-container { /*Round table corners*/
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.custom-table thead tr {  
+  background-color: #007bff; /*Style headers with blue background*/
+  color: white;
+  text-align: center;
+}
+
+.custom-table th, /*Center content*/
+.custom-table td {
+  vertical-align: middle;
+  text-align: center;       
+}
+
+.custom-table tbody tr:hover { /*Hover highlight effect*/
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.no-data-msg { /*Style no-data message*/
+  color: #dc3545;
+  font-weight: bold;
+  padding: 1rem;
+  text-align: center;
+}
