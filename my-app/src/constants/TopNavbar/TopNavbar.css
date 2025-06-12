@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: fixed;
 }
 
 .navbar-brand.brand-with-logo {
@@ -89,7 +90,7 @@
 
 /* Style the nav links (Home, Login) */
 .custom-navbar .nav-link {
-  font-size: 1.1rem;          /* same as .indicators-text */
+  font-size: 1.1rem;         
   font-weight: 300;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
@@ -99,7 +100,7 @@
 
 /* Style the dropdown toggle text (Results, About) */
 .custom-navbar .dropdown-toggle {
-  font-size: 1.1rem;          /* same as .indicators-text */
+  font-size: 1.1rem;       
   font-weight: 300;
   letter-spacing: 0.2rem;
   text-transform: uppercase;

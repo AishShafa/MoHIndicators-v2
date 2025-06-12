@@ -1,0 +1,18 @@
+
+.home-page h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #198754;
+}
+
+.population-card {
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+}
+
+.population-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #157708;
+}

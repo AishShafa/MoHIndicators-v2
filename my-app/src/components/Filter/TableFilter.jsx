@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import Select from "react-select";
-import "./SearchMenu.css";
+import "./TableFilter.css";
 import MultiSelect from "./MultiSelect";
 
 
-export default function SearchMenu({ isOpen, toggleMenu, filters, setFilters }) {
+export default function TableFilter({ isOpen, toggleMenu, filters, setFilters }) {
  /*Filters menu in dashboard*/
 
       // Temporary local states for each filter field

@@ -2,10 +2,13 @@
 
 import React, { useState } from "react";
 import {  Card , ButtonGroup, Button} from "react-bootstrap";
-import SearchMenu from "../../components/Menu/SearchMenu";
+import TableFilter from "../../components/Filter/TableFilter";
+import ChartFilter from "../../components/Filter/ChartFilter";
 import DataRead from "../../data/data_read";
 import "./Dashboard.css";
-import TopNavbar from "../../constants/TopNavbar/TopNavbar";
+import DataPie from "../../components/Charts/Pie/PieChart";
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 
 
 export default function Dashboard() {
@@ -26,28 +29,44 @@ export default function Dashboard() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+
   return (
     <>
-      {/* Top navbar */}
-      <TopNavbar />
 
       {/* Hamburger button*/}
       <button
        className="menu-button" 
        onClick={toggleMenu}
-       style={{ left: isMenuOpen ? "295px" : "32px" }} /*width to side of page on menu from open to close*/
+       style={{ left: isMenuOpen ? "290px" : "22px" }} /*width to side of page on menu from open to close*/
 >
-  {isMenuOpen ? "←" : "☰"}
+  {isMenuOpen ? <MenuRoundedIcon/> : <MenuOpenRoundedIcon />}
        </button>
 
           {/* Sidebar menu + Main Content*/}
           <div className="dashboard-layout">
-            <SearchMenu 
-            isOpen={isMenuOpen} 
-            toggleMenu={toggleMenu} 
-            filters={filters} 
-            setFilters={setFilters} 
-            />
+            <div
+              className={`sidebar-container ${isMenuOpen ? "" : "collapsed"}`}
+              style={{ width: isMenuOpen ? "295px" : "1px", transition: "width 0.3s" }}
+            >
+              {activeView === "table" && (
+                <TableFilter
+                  isOpen={isMenuOpen}
+                  toggleMenu={toggleMenu}
+                  filters={filters}
+                  setFilters={setFilters}
+                />
+              )}
+              {activeView === "charts" && (
+                <ChartFilter
+                  isOpen={isMenuOpen}
+                  toggleMenu={toggleMenu}
+                  filters={filters}
+                  setFilters={setFilters}
+                />
+              )}
+              
+            </div>
+
 
           {/* Main content, pushed if sidebar is open */}
 
@@ -82,11 +101,7 @@ export default function Dashboard() {
           <Card className="mb-3" style={{ height: "700px", overflowY: "auto" }}>
             <Card.Body>
               {activeView === "table" && <DataRead filters={filters} />}
-              {activeView === "charts" && (
-                <div className="d-flex justify-content-center align-items-center h-100">
-                  <span>📊 Charts view coming soon</span>
-                </div>
-              )}
+              {activeView === "charts" && <DataPie filters={filters} />}
               {activeView === "about" && (
                 <div>
                   <h5>About This Dashboard</h5>

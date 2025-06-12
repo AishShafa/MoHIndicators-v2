@@ -1,7 +1,6 @@
 
 
 .custom-table-container { /*Round table corners*/
-  margin: 2rem 0;
   padding: 1rem;
   border-radius: 10px;
   background-color: #f8f9fa;
@@ -9,7 +8,7 @@
 }
 
 .custom-table thead tr {  
-  background-color: #007bff; /*Style headers with blue background*/
+  background-color: #188830; /*headers */
   color: white;
   text-align: center;
 }

@@ -2,6 +2,7 @@
 
 
 import DataTable from "../components/Table/Data_Table";
+import DataPie from "../components/Charts/Pie/PieChart";
 import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import PropTypes from "prop-types";
@@ -96,7 +97,8 @@ const DataRead = ({ filters }) => {
         // Show message if no results after filtering
         <p>No data matches the selected filters.</p>
             ) : (
-        <DataTable data={filteredData} />
+        <><DataTable data={filteredData} />
+        <DataPie data={filteredData} /></>
       )}
     </div>
   );

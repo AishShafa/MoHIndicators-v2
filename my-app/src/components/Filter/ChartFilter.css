@@ -1,0 +1,31 @@
+.chart-filter-layout {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 1px;
+}
+
+.chart-toggle-group .MuiToggleButton-root {
+  border: 1px solid #ccc !important;
+  border-radius: 0 !important;
+  margin-bottom: 8px;
+  background-color: #fff;
+  color: #333;
+  padding: 8px;
+}
+
+.chart-toggle-group .Mui-selected {
+  background-color: #e0f2f1 !important;
+  border-color: #198754 !important;
+  color: #198754 !important;
+}
+
+.filters-section {
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.filters-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,11 @@
+.about-page h2 {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #198754;
+}
+
+.about-page p,
+.about-page li {
+  font-size: 1.05rem;
+  color: #444;
+}
