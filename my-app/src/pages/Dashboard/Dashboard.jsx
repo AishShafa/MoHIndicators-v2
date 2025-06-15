@@ -9,7 +9,7 @@ import "./Dashboard.css";
 import DataPie from "../../components/Charts/Pie/PieChart";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
-
+import ExcelChartDashboard from "../../data/ExcelChartDashboard";
 
 export default function Dashboard() {
   const [isMenuOpen, setIsMenuOpen] = useState(true); /*Menu Open by Default*/
@@ -58,7 +58,7 @@ export default function Dashboard() {
               )}
               {activeView === "charts" && (
                 <ChartFilter
-                  isOpen={isMenuOpen}
+                isOpen={isMenuOpen}
                   toggleMenu={toggleMenu}
                   filters={filters}
                   setFilters={setFilters}
@@ -71,10 +71,14 @@ export default function Dashboard() {
           {/* Main content, pushed if sidebar is open */}
 
         <div className="main-content">
-          <div className="results-header d-flex align-items-center justify-content-center mb-4">
-          {/*<h3 className="me-2 mb-0">Results</h3>*/}
-
+          <div className="results-header text-center mb-3">
+  <h2 className="results-header-title">
+              Results
+              {filters?.indicator?.label && ` – ${filters.indicator.label}`}
+            </h2>
+            
             {/* View Toggle Buttons */}
+            
           <ButtonGroup className="toggle-group">
             <Button
               className={activeView === "table" ? "toggle-btn active" : "toggle-btn"}
@@ -101,7 +105,7 @@ export default function Dashboard() {
           <Card className="mb-3" style={{ height: "700px", overflowY: "auto" }}>
             <Card.Body>
               {activeView === "table" && <DataRead filters={filters} />}
-              {activeView === "charts" && <DataPie filters={filters} />}
+              {activeView === "charts" && <ExcelChartDashboard filters={filters} />}
               {activeView === "about" && (
                 <div>
                   <h5>About This Dashboard</h5>
@@ -117,6 +121,7 @@ export default function Dashboard() {
               )}
             </Card.Body>
           </Card>
+          
 
           </div>
       </div>

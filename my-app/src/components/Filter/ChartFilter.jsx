@@ -117,7 +117,7 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
       <div className="chart-filter-layout">
         {/* Chart Type Buttons */}
         <ToggleButtonGroup
-          orientation="vertical"
+          orientation="horizontal"
           value={view}
           exclusive
           onChange={handleViewChange}
@@ -166,7 +166,7 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
             <span
               onClick={handleClearFilters}
               style={{
-                color: "#007bff",
+                color: "#d9d9d9",
                 cursor: "pointer",
                 textDecoration: "underline",
                 fontSize: "14px",

@@ -1,29 +1,43 @@
-
-
 .custom-form-label {
   font-weight: 600;
-  font-size: 13px;
-  color: #333;
-  align-items: start;
+  font-size: 16px;
+  color: #f9fafb; /* off-white */
+  display: flex;
+  align-items: flex-start;
+  letter-spacing: 0.02em;
 }
 
 .floating-submit-button {
   position: sticky;
-  bottom: 0;
-  background-color: #28a745 !important; /* Bootstrap green */
-  color: white;
-  font-weight: 600;
-  margin-top: 1rem;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  bottom: 1rem;
+  background: linear-gradient(135deg, #10b981, #047857); /* smooth green gradient */
+  color: #fff;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 8px 15px rgba(4, 120, 87, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-submit-button:hover,
+.floating-submit-button:focus {
+  background: linear-gradient(135deg, #047857, #065f46);
+  box-shadow: 0 12px 20px rgba(4, 120, 87, 0.5);
+  outline: none;
 }
 
 .menu-toggle {
   cursor: pointer;
-  margin-bottom: 1rem;
-  color: #333;
+  margin-bottom: 1.25rem;
+  color: #111827; /* dark slate */
   display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  user-select: none;
 }
 
 @media (max-width: 768px) {
@@ -32,46 +46,53 @@
   }
 }
 
-
 .menu-button {
   position: fixed;
-  top: 131px;
-  left: 325px;
-  width: 30px;
-  height: 30px;
-  background-color: #fff;
-  border: 1px solid #33333379;
-  border-radius: 5px;
+  top: 130px;
+  left: 320px;
+  width: 36px;
+  height: 36px;
+  background-color: #ffffffcc; /* translucent white */
+  border: 2px solid #10b981; /* Tailwind green 500 */
+  border-radius: 8px;
   z-index: 2000;
   cursor: pointer;
-  transition: left 0.3s ease;
-  margin-top: 14px;
+  transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 12px;
 
-  /* Center icon inside */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  color: #10b981;
 
-  /* remove button outline and styling on focus */
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
 }
 
+.menu-button:hover,
+.menu-button:focus {
+  background-color: #10b981;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.7);
+}
 
-.sidebar-menu { 
+.sidebar-menu {
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 1000px;
-  background-color: #fff;
-  border-right: 1px solid #ccc;  /*Menu right line*/
-  padding-left: 5px;
-  padding-right: 5px;
+  width: 280px;
+  height: 100vh;
+  background: rgba(5, 150, 105, 0.85); /* semi-transparent green */
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1rem 0.75rem;
   transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1500;
+  box-shadow: 4px 0 12px rgba(5, 150, 105, 0.3);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .sidebar-menu.open {

@@ -124,23 +124,50 @@ const metricOptions = [
         classNamePrefix="react-select"
         placeholder="Select Indicator"
         styles={{
-        control: (provided) => ({
-        ...provided,
-        }),
-        input: (provided) => ({
-        ...provided,
-        fontSize: '14px',
-        }),
-        singleValue: (provided) => ({
-        ...provided,
-        fontSize: '14px',
-        }),
-        placeholder: (provided) => ({
-        ...provided,
-        fontSize: '16px',
-        }),
+        control: (base, state) => ({
+    ...base,
+    fontSize: "13px",
+    backgroundColor: "#ffffff",
+    borderColor: "#2ccd94",
+    color: "047857",
+  }),
+  singleValue: (base) => ({
+    ...base,
+    fontSize: "13px",
+    color: "047857",
+  }),
+  placeholder: (base) => ({
+    ...base,
+    fontSize: "13px",
+    color: "#047857",
+  }),
+  option: (base, state) => ({
+    ...base,
+    fontSize: "13px",
+    backgroundColor: state.isSelected
+      ? "#2ccd94"
+      : state.isFocused
+      ? "#34d399"
+      : "#fff",
+    color: state.isSelected ? "white" : "#111",
+    "&:hover": {
+      backgroundColor: "#a7f3d0",
+    },
+  }),
+    dropdownIndicator: (base) => ({
+      ...base,
+      color: "#047857", 
+      ":hover": {
+        color: "#2ccd94",
+      },
+    }),
+    menu: (base) => ({
+      ...base,
+      fontSize: "13px",
+      backgroundColor: "#10b981", // dropdown background
+      color: "white",
+    }),
     }}
-
         />
         </Form.Group>
 
@@ -195,7 +222,7 @@ const metricOptions = [
             <span
               onClick={handleClearFilters}
               style={{
-                color: "#007bff",
+                color: "#ffffff",
                 cursor: "pointer",
                 textDecoration: "underline",
                 fontSize: "14px",
