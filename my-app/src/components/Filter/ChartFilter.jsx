@@ -10,11 +10,11 @@ import MultiSelect from "./MultiSelect";
 
 export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters }) {
   const [view, setView] = useState("list");
+  const [groupBy, setGroupBy] = useState("Region");
+
 
   // Local filter state
   const [tempIndicator, setTempIndicator] = useState(null);
-  const [tempMetrics, setTempMetrics] = useState([]);
-  const [tempLocations, setTempLocations] = useState([]);
   const [tempAges, setTempAges] = useState([]);
   const [tempGenders, setTempGenders] = useState([]);
   const [tempYears, setTempYears] = useState([]);
@@ -22,8 +22,6 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
 
   useEffect(() => {
     setTempIndicator(filters.indicator || null);
-    setTempMetrics(filters.metrics || []);
-    setTempLocations(filters.locations || []);
     setTempAges(filters.ages || []);
     setTempGenders(filters.genders || []);
     setTempYears(filters.years || []);
@@ -38,22 +36,22 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
   // Apply filters to parent state
   const handleApplyFilters = (e) => {
     e.preventDefault();
+    
     setFilters({
       indicator: tempIndicator,
-      metrics: tempMetrics,
-      locations: tempLocations,
-      ages: tempAges,
-      genders: tempGenders,
-      years: tempYears,
+      ages: groupBy !== "Age" ? tempAges : [],
+      genders: groupBy !== "Gender" ? tempGenders : [],
+      years: groupBy !== "Year" ? tempYears : [],
       regions: tempRegions,
+
       chartType: view,
+      groupBy: groupBy,
     });
+    setFilters(setFilters)
   };
 
   const handleClearFilters = () => {
     setTempIndicator(null);
-    setTempMetrics([]);
-    setTempLocations([]);
     setTempAges([]);
     setTempGenders([]);
     setTempYears([]);
@@ -62,27 +60,14 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
 
   // Filter options
   const indicatorOptions = [
+    { value: "AllI", label: "All Indicators" },
     { value: "structural", label: "Structural & Policy Determinants" },
     { value: "community", label: "Community & Behavioral Determinants" },
     { value: "clinical", label: "Clinical & Outcome Determinants" },
   ];
 
-  const metricOptions = [
-    { value: "Number", label: "Number" },
-    { value: "Percent", label: "Percent" },
-    { value: "Rate", label: "Rate" },
-  ];
-
-  const locationOptions = [
-    { value: "Male", label: "Male" },
-    { value: "Hulhumale", label: "Hulhumale" },
-    { value: "Villingili", label: "Villingili" },
-    { value: "Phase2", label: "Phase 2" },
-    { value: "Maafushi", label: "Maafushi" },
-    { value: "Kaashidhoo", label: "Kaashidhoo" },
-  ];
-
   const ageOptions = [
+    { value: "AllA", label: "All Ages" },
     { value: "<1", label: "Below 1 Year" },
     { value: "1-4", label: "1–4 Years" },
     { value: "5-14", label: "5–14 Years" },
@@ -97,20 +82,51 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
   const genderOptions = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
-    { value: "Both", label: "Both" },
   ];
 
-  const yearOptions = [
-    { value: 2025, label: "2025" },
-    { value: 2024, label: "2024" },
-    { value: 2023, label: "2023" },
-  ];
+  const yearOptions = [];
+  for (let y = 2025; y >= 1990; y--) {
+    yearOptions.push({ value: y, label: y.toString() });
+  }
 
+  // Maldives Regions (Atolls and City)
   const regionOptions = [
+    { value: "AllR", label: "All Regions" },
+    { value: "Addu", label: "Addu" },
+    { value: "Alif Dhaalu", label: "Alif Dhaalu" },
+    { value: "Alif Alif", label: "Alif Alif" },
+    { value: "Baa", label: "Baa" },
+    { value: "Dhaalu", label: "Dhaalu" },
+    { value: "Faafu", label: "Faafu" },
+    { value: "Gaafu Alif", label: "Gaafu Alif" },
+    { value: "Gaafu Dhaalu", label: "Gaafu Dhaalu" },
+    { value: "Gnaviyani", label: "Gnaviyani" },
+    { value: "Haa Dhaalu", label: "Haa Dhaalu" },
+    { value: "Haa Alif", label: "Haa Alif" },
     { value: "Kaafu", label: "Kaafu" },
     { value: "Laamu", label: "Laamu" },
-    { value: "Gaafu", label: "Gaafu" },
+    { value: "Lhaviyani", label: "Lhaviyani" },
+    { value: "Meemu", label: "Meemu" },
+    { value: "Noonu", label: "Noonu" },
+    { value: "Raa", label: "Raa" },
+    { value: "Seenu", label: "Seenu" },
+    { value: "Shaviyani", label: "Shaviyani" },
+    { value: "Thaa", label: "Thaa" },
   ];
+
+<Form.Group className="mb-3" controlId="selectGroupBy">
+  <Form.Label className="custom-form-label">Group By (X-axis)</Form.Label>
+  <Select
+    options={[
+      { value: "Age", label: "Age" },
+      { value: "Gender", label: "Gender" },
+      { value: "Year", label: "Year" },
+      { value: "Region", label: "Region" },
+    ]}
+    value={{ value: groupBy, label: groupBy }}
+    onChange={(selected) => setGroupBy(selected.value)}
+  />
+</Form.Group>
 
   return (
     <div className={`sidebar-menu ${isOpen ? "open" : ""}`}>
@@ -151,8 +167,7 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
             />
           </Form.Group>
 
-          <MultiSelect label="Metric" options={metricOptions} selectedOptions={tempMetrics} onChange={setTempMetrics} />
-          <MultiSelect label="Location" options={locationOptions} selectedOptions={tempLocations} onChange={setTempLocations} />
+
           <MultiSelect label="Age" options={ageOptions} selectedOptions={tempAges} onChange={setTempAges} />
           <MultiSelect label="Gender" options={genderOptions} selectedOptions={tempGenders} onChange={setTempGenders} />
           <MultiSelect label="Year" options={yearOptions} selectedOptions={tempYears} onChange={setTempYears} />
