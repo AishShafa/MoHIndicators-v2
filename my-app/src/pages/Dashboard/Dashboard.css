@@ -5,45 +5,48 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  margin-top: -4px;
-  height: 795px;
-  overflow: hidden;
 }
 
 .results-header-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #065f46; 
-  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  text-align: left;
   letter-spacing: 0.02rem;
-  margin-bottom: 10px;
-  margin-top: 5px;
-  margin-left: 10px;
+  margin-bottom: 0;
+  margin-top: 0;
+  margin-left: 0;
 }
 
 
 
 /* Sidebar positioning */
 .sidebar-menu {
-  position: relative; 
+  height: 100%;
   width: 305px;
   transition: all 0.3s ease;
+  margin-top: 119px;
   border-right: 1px solid #ccc;
   padding: 10px;
+  margin-left: 32px; /* Add space from the left edge */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10); /* Enhance floating effect */
 }
 
 /* Main content next to sidebar */
 .main-content {
+  display: flex;
   flex-grow: 1;
   padding: 20px;
   padding-bottom: 80px;
   text-align: start;
   transition: all 0.3s ease;
+  background: #f3f4f6;
+  border-radius: 22px;
 }
 
 /* ==== FILTERS TITLE ==== */
 .filters-title {
-  color: #ffffff;
+  color: #000000;
   margin: 0;
   font-size: 1.9rem;
   text-align: start;
@@ -55,17 +58,23 @@
 /* ==== TOGGLE BUTTON STYLES ==== */
 .results-header {
   gap: 1rem;
+  margin-bottom: 0;
 }
 
 /* Wrapper for toggle buttons */
 .toggle-group {
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* prevent vertical stretching */
   gap: 0.5rem;
   background-color: #f8f9fa;
   border-radius: 10px;
-  padding: 6px;
-  width: 100%; /* Full width inside main content */
+  padding: 2px 4px; /* reduced padding */
+  max-width: 340px; /* set a max width */
+  margin: 16px auto; /* center horizontally and add margin */
+  width: 100%;
+  box-sizing: border-box;
+  height: auto; /* ensure height is only as needed */
 }
 
 .toggle-group-wrapper {
@@ -83,9 +92,9 @@
   color: #1f2937; /* default text color */
   border: 2px solid #e5e7eb; /* light gray */
   border-radius: 8px;
-  padding: 0.6rem 1rem;
+  padding: 0.3rem 0.7rem; /* reduced padding for smaller height */
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1rem; /* reduced font size for smaller height */
   transition: all 0.3s ease;
 }
 
@@ -102,5 +111,12 @@
   color: white;
   border-color: #059669;
   font-weight: 600;
+}
+
+.card {
+  border-radius: 22px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+  background: #fff !important;
+  padding: 0 !important;
 }
 

@@ -12,7 +12,6 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
   const [view, setView] = useState("list");
   const [groupBy, setGroupBy] = useState("Region");
 
-
   // Local filter state
   const [tempIndicator, setTempIndicator] = useState(null);
   const [tempAges, setTempAges] = useState([]);
@@ -26,6 +25,8 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
     setTempGenders(filters.genders || []);
     setTempYears(filters.years || []);
     setTempRegions(filters.regions || []);
+    setView(filters.chartType || "list");
+    setGroupBy(filters.groupBy || "Region");
   }, [filters]);
 
   // Toggle chart view
@@ -36,18 +37,16 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
   // Apply filters to parent state
   const handleApplyFilters = (e) => {
     e.preventDefault();
-    
+
     setFilters({
       indicator: tempIndicator,
       ages: groupBy !== "Age" ? tempAges : [],
       genders: groupBy !== "Gender" ? tempGenders : [],
       years: groupBy !== "Year" ? tempYears : [],
       regions: tempRegions,
-
       chartType: view,
       groupBy: groupBy,
     });
-    setFilters(setFilters)
   };
 
   const handleClearFilters = () => {
@@ -89,7 +88,6 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
     yearOptions.push({ value: y, label: y.toString() });
   }
 
-  // Maldives Regions (Atolls and City)
   const regionOptions = [
     { value: "AllR", label: "All Regions" },
     { value: "Addu", label: "Addu" },
@@ -114,20 +112,6 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
     { value: "Thaa", label: "Thaa" },
   ];
 
-<Form.Group className="mb-3" controlId="selectGroupBy">
-  <Form.Label className="custom-form-label">Group By (X-axis)</Form.Label>
-  <Select
-    options={[
-      { value: "Age", label: "Age" },
-      { value: "Gender", label: "Gender" },
-      { value: "Year", label: "Year" },
-      { value: "Region", label: "Region" },
-    ]}
-    value={{ value: groupBy, label: groupBy }}
-    onChange={(selected) => setGroupBy(selected.value)}
-  />
-</Form.Group>
-
   return (
     <div className={`sidebar-menu ${isOpen ? "open" : ""}`}>
       <div className="chart-filter-layout">
@@ -150,6 +134,21 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
           </ToggleButton>
         </ToggleButtonGroup>
 
+        {/* Group By selector */}
+        <Form.Group className="mb-3" controlId="selectGroupBy">
+          <Form.Label className="custom-form-label">Group By (X-axis)</Form.Label>
+          <Select
+            options={[
+              { value: "Age", label: "Age" },
+              { value: "Gender", label: "Gender" },
+              { value: "Year", label: "Year" },
+              { value: "Region", label: "Region" },
+            ]}
+            value={{ value: groupBy, label: groupBy }}
+            onChange={(selected) => setGroupBy(selected.value)}
+          />
+        </Form.Group>
+
         {/* Filters Section */}
         <Form onSubmit={handleApplyFilters} className="filters-section">
           <h3 className="filters-title">Filters</h3>
@@ -166,7 +165,6 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
               placeholder="Select Indicator"
             />
           </Form.Group>
-
 
           <MultiSelect label="Age" options={ageOptions} selectedOptions={tempAges} onChange={setTempAges} />
           <MultiSelect label="Gender" options={genderOptions} selectedOptions={tempGenders} onChange={setTempGenders} />
