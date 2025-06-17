@@ -1,10 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
 import {
   BarChart,
   Bar,
@@ -215,18 +211,10 @@ export default function HealthDashboard() {
               </div>
             </div>
             <nav className="flex items-center space-x-6">
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                HOME
-              </Button>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                RESULTS
-              </Button>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                ABOUT
-              </Button>
-              <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700">
-                LOGIN
-              </Button>
+              <button className="text-gray-600 hover:text-gray-900 bg-transparent border-none">HOME</button>
+              <button className="text-gray-600 hover:text-gray-900 bg-transparent border-none">RESULTS</button>
+              <button className="text-gray-600 hover:text-gray-900 bg-transparent border-none">ABOUT</button>
+              <button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-4 py-2 rounded">LOGIN</button>
             </nav>
           </div>
         </div>
@@ -236,63 +224,47 @@ export default function HealthDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Enhanced Filters Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-8">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center space-x-2 text-lg">
+            <div className="sticky top-8 border rounded bg-white p-4">
+              <div className="pb-4 border-b mb-4">
+                <div className="flex items-center space-x-2 text-lg font-bold">
                   <Filter className="w-5 h-5 text-emerald-600" />
                   <span>Filters</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+                </div>
+              </div>
+              <div className="space-y-6">
                 {/* Chart Type Selection */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Chart Type</label>
                   <div className="flex space-x-2">
-                    <Button
-                      variant={chartType === "bar" ? "default" : "outline"}
-                      size="sm"
+                    <button
+                      className={`flex-1 px-2 py-1 rounded ${chartType === "bar" ? "bg-emerald-500 text-white" : "border"}`}
                       onClick={() => setChartType("bar")}
-                      className="flex-1"
                     >
-                      <BarChart3 className="w-4 h-4 mr-1" />
-                      Bar
-                    </Button>
-                    <Button
-                      variant={chartType === "line" ? "default" : "outline"}
-                      size="sm"
+                      <BarChart3 className="w-4 h-4 mr-1 inline" /> Bar
+                    </button>
+                    <button
+                      className={`flex-1 px-2 py-1 rounded ${chartType === "line" ? "bg-emerald-500 text-white" : "border"}`}
                       onClick={() => setChartType("line")}
-                      className="flex-1"
                     >
-                      <Activity className="w-4 h-4 mr-1" />
-                      Line
-                    </Button>
-                    <Button
-                      variant={chartType === "pie" ? "default" : "outline"}
-                      size="sm"
+                      <Activity className="w-4 h-4 mr-1 inline" /> Line
+                    </button>
+                    <button
+                      className={`flex-1 px-2 py-1 rounded ${chartType === "pie" ? "bg-emerald-500 text-white" : "border"}`}
                       onClick={() => setChartType("pie")}
-                      className="flex-1"
                     >
-                      <PieChartIcon className="w-4 h-4 mr-1" />
-                      Pie
-                    </Button>
+                      <PieChartIcon className="w-4 h-4 mr-1 inline" /> Pie
+                    </button>
                   </div>
                 </div>
 
                 {/* Group By Selection */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Group By (X-axis)</label>
-                  <Select value={groupBy} onValueChange={setGroupBy}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select grouping" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {groupByOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <select value={groupBy} onChange={e => setGroupBy(e.target.value)} className="w-full border rounded p-1">
+                    {groupByOptions.map((option) => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Indicator Selection */}
@@ -301,24 +273,19 @@ export default function HealthDashboard() {
                     <Activity className="w-4 h-4" />
                     <span>Indicator</span>
                   </label>
-                  <Select
+                  <select
                     value={tempIndicator?.value || ""}
-                    onValueChange={(value) => {
-                      const option = indicatorOptions.find((opt) => opt.value === value)
+                    onChange={e => {
+                      const option = indicatorOptions.find(opt => opt.value === e.target.value)
                       setTempIndicator(option)
                     }}
+                    className="w-full border rounded p-1"
                   >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Indicator" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {indicatorOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    <option value="">Select Indicator</option>
+                    {indicatorOptions.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Age Group Multi-Select */}
@@ -328,30 +295,19 @@ export default function HealthDashboard() {
                       <Users className="w-4 h-4" />
                       <span>Age Group</span>
                     </label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder={getSelectedLabel(tempAges, ageOptions)} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {ageOptions.map((option) => (
-                          <SelectItem
-                            key={option.value}
-                            value={option.value}
-                            onClick={() => handleMultiSelectChange(option.value, tempAges, setTempAges)}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                checked={tempAges.includes(option.value)}
-                                onChange={() => {}}
-                                className="rounded"
-                              />
-                              <span>{option.label}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="border rounded p-2 max-h-32 overflow-y-auto">
+                      {ageOptions.map(option => (
+                        <label key={option.value} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={tempAges.includes(option.value)}
+                            onChange={() => handleMultiSelectChange(option.value, tempAges, setTempAges)}
+                            className="rounded"
+                          />
+                          <span>{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -359,30 +315,19 @@ export default function HealthDashboard() {
                 {groupBy !== "Gender" && (
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">Gender</label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder={getSelectedLabel(tempGenders, genderOptions)} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {genderOptions.map((option) => (
-                          <SelectItem
-                            key={option.value}
-                            value={option.value}
-                            onClick={() => handleMultiSelectChange(option.value, tempGenders, setTempGenders)}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                checked={tempGenders.includes(option.value)}
-                                onChange={() => {}}
-                                className="rounded"
-                              />
-                              <span>{option.label}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="border rounded p-2 max-h-24 overflow-y-auto">
+                      {genderOptions.map(option => (
+                        <label key={option.value} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={tempGenders.includes(option.value)}
+                            onChange={() => handleMultiSelectChange(option.value, tempGenders, setTempGenders)}
+                            className="rounded"
+                          />
+                          <span>{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -393,30 +338,19 @@ export default function HealthDashboard() {
                       <Calendar className="w-4 h-4" />
                       <span>Year</span>
                     </label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder={getSelectedLabel(tempYears, yearOptions)} />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-48">
-                        {yearOptions.map((option) => (
-                          <SelectItem
-                            key={option.value}
-                            value={option.value}
-                            onClick={() => handleMultiSelectChange(option.value, tempYears, setTempYears)}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                checked={tempYears.includes(option.value)}
-                                onChange={() => {}}
-                                className="rounded"
-                              />
-                              <span>{option.label}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="border rounded p-2 max-h-32 overflow-y-auto">
+                      {yearOptions.map(option => (
+                        <label key={option.value} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={tempYears.includes(option.value)}
+                            onChange={() => handleMultiSelectChange(option.value, tempYears, setTempYears)}
+                            className="rounded"
+                          />
+                          <span>{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -426,47 +360,36 @@ export default function HealthDashboard() {
                     <MapPin className="w-4 h-4" />
                     <span>Region</span>
                   </label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder={getSelectedLabel(tempRegions, regionOptions)} />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-48">
-                      {regionOptions.map((option) => (
-                        <SelectItem
-                          key={option.value}
-                          value={option.value}
-                          onClick={() => handleMultiSelectChange(option.value, tempRegions, setTempRegions)}
-                        >
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              checked={tempRegions.includes(option.value)}
-                              onChange={() => {}}
-                              className="rounded"
-                            />
-                            <span>{option.label}</span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="border rounded p-2 max-h-32 overflow-y-auto">
+                    {regionOptions.map(option => (
+                      <label key={option.value} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={tempRegions.includes(option.value)}
+                          onChange={() => handleMultiSelectChange(option.value, tempRegions, setTempRegions)}
+                          className="rounded"
+                        />
+                        <span>{option.label}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="pt-4 space-y-3">
-                  <Button
-                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+                  <button
+                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-4 py-2 rounded"
                     onClick={handleApplyFilters}
                     disabled={loading}
                   >
                     {loading ? "Loading..." : "Apply Filters"}
-                  </Button>
-                  <Button variant="outline" className="w-full" onClick={handleClearFilters}>
+                  </button>
+                  <button className="w-full border px-4 py-2 rounded" onClick={handleClearFilters}>
                     Clear Selection
-                  </Button>
+                  </button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           {/* Main Content */}
@@ -477,72 +400,62 @@ export default function HealthDashboard() {
                 <h2 className="text-3xl font-bold text-gray-900">Results</h2>
                 <p className="text-gray-600 mt-1">Health indicators data visualization</p>
               </div>
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800">
-                Updated Today
-              </Badge>
+              <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded text-sm">Updated Today</span>
             </div>
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="bg-white border border-gray-200 shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-500 text-sm font-medium mb-1">Total Records</p>
-                      <p className="text-3xl font-bold text-gray-900">{(data.length * 25223).toLocaleString()}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <TrendingUp className="w-6 h-6 text-blue-600" />
-                    </div>
+              <div className="bg-white border border-gray-200 shadow-sm rounded p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm font-medium mb-1">Total Records</p>
+                    <p className="text-3xl font-bold text-gray-900">{(data.length * 25223).toLocaleString()}</p>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+              </div>
 
-              <Card className="bg-white border border-gray-200 shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-500 text-sm font-medium mb-1">Average</p>
-                      <p className="text-3xl font-bold text-gray-900">
-                        {Math.round(data.reduce((acc, item) => acc + item.value, 0) / data.length).toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <Activity className="w-6 h-6 text-green-600" />
-                    </div>
+              <div className="bg-white border border-gray-200 shadow-sm rounded p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm font-medium mb-1">Average</p>
+                    <p className="text-3xl font-bold text-gray-900">
+                      {Math.round(data.reduce((acc, item) => acc + item.value, 0) / data.length).toLocaleString()}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <Activity className="w-6 h-6 text-green-600" />
+                  </div>
+                </div>
+              </div>
 
-              <Card className="bg-white border border-gray-200 shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-500 text-sm font-medium mb-1">Median</p>
-                      <p className="text-3xl font-bold text-gray-900">
-                        {Math.round(data.reduce((acc, item) => acc + item.median, 0) / data.length).toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Users className="w-6 h-6 text-purple-600" />
-                    </div>
+              <div className="bg-white border border-gray-200 shadow-sm rounded p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm font-medium mb-1">Median</p>
+                    <p className="text-3xl font-bold text-gray-900">
+                      {Math.round(data.reduce((acc, item) => acc + item.median, 0) / data.length).toLocaleString()}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Users className="w-6 h-6 text-purple-600" />
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Enhanced Chart Section */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">Number by {groupBy}</CardTitle>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-500">Grouped by:</span>
-                    <Badge variant="outline">{groupBy}</Badge>
-                  </div>
+            <div className="border rounded bg-white">
+              <div className="p-4 border-b flex items-center justify-between">
+                <span className="text-xl font-bold">Number by {groupBy}</span>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-500">Grouped by:</span>
+                  <span className="border px-2 py-1 rounded text-xs">{groupBy}</span>
                 </div>
-              </CardHeader>
-              <CardContent>
+              </div>
+              <div className="p-4">
                 <div className="h-96">
                   {loading ? (
                     <div className="flex items-center justify-center h-full">
@@ -641,15 +554,13 @@ export default function HealthDashboard() {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Data Summary */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Data Summary - Current Selection</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="border rounded bg-white">
+              <div className="p-4 border-b font-bold">Data Summary - Current Selection</div>
+              <div className="p-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-gray-50 rounded-lg">
                     <p className="text-sm text-gray-600">Count / Sum</p>
@@ -674,8 +585,8 @@ export default function HealthDashboard() {
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
