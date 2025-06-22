@@ -55,7 +55,7 @@
   background-color: #ffffffcc; /* translucent white */
   border: 2px solid #10b981; /* Tailwind green 500 */
   border-radius: 8px;
-  z-index: 2000;
+  z-index: 1000;
   cursor: pointer;
   transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   margin-top: 12px;
