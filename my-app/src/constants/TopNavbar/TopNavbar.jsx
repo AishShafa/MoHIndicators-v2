@@ -39,6 +39,7 @@ export default function TopNavbar() {
                         <Link to="/home" className="text-sm font-medium hover:text-emerald-600">HOME</Link>
                         <Link to="/" className="text-sm font-medium text-gray-800 hover:text-emerald-600">RESULTS</Link>
                         <Link to="/about" className="text-sm font-medium hover:text-emerald-600">ABOUT</Link>
+                        <Link to="/admin" className="text-sm font-medium hover:text-emerald-600">ADMIN</Link>
                         <Link
                             to="/login"
                             className="bg-emerald-500 text-white px-4 py-2 rounded text-sm font-medium hover:bg-emerald-600 transition"

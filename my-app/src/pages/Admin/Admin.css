@@ -1,0 +1,203 @@
+* {
+    box-sizing: border-box;
+}
+body, html, #root {
+    margin: 0; padding: 0; height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f9fafb;
+    color: #111827;
+}
+.admin-dashboard {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+.sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    border-radius: 0 15px 15px 0;
+    user-select: none;
+    color: #046c4e;
+}
+.sidebar-header {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 2px solid #0f9f67;
+    padding-bottom: 0.75rem;
+}
+.sidebar-header span {
+    font-size: 1.7rem;
+}
+.sidebar-nav {
+    flex-grow: 1;
+}
+.sidebar-item {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+.sidebar-item:hover {
+    background-color: #dcf5e9;
+}
+.sidebar-item.active {
+    background-color: #06b15f;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(6,177,95,0.4);
+}
+.sidebar-item .icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    background: #f3f7f6;
+}
+.header {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #046c4e;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #06b15f;
+    margin-bottom: 1.8rem;
+    user-select: none;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.3rem 1.5rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    user-select: none;
+}
+.stat-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #04754d;
+    margin-bottom: 0.4rem;
+}
+.stat-value {
+    font-weight: 700;
+    font-size: 2.1rem;
+    color: #06b15f;
+}
+.stat-change {
+    color: #12a45e;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    user-select: text;
+}
+.activity-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    user-select: none;
+}
+.activity-header {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #046c4e;
+    border-bottom: 2px solid #06b15f;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1rem;
+}
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #e0e6e4;
+    font-size: 0.95rem;
+    color: #3a3f47;
+    transition: background-color 0.2s ease;
+    cursor: default;
+}
+.activity-item:last-child {
+    border-bottom: none;
+}
+.activity-item:hover {
+    background-color: #dcf5e9;
+    border-radius: 8px;
+}
+.activity-user {
+    font-weight: 600;
+    color: #049257;
+    min-width: 80px;
+}
+.activity-action {
+    flex-grow: 1;
+    padding: 0 1rem;
+    color: #1a1f24;
+    user-select: text;
+}
+.activity-time {
+    color: #94a3b8;
+    white-space: nowrap;
+    user-select: text;
+}
+
+@media (max-width: 900px) {
+    .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    }
+    .sidebar {
+    width: 60px;
+    padding: 1rem 0.3rem;
+    }
+    .sidebar-header, 
+    .sidebar-item span {
+    display: none;
+    }
+    .sidebar-item {
+    justify-content: center;
+    font-size: 1.5rem;
+    }
+    .content {
+    padding: 1rem 1rem 1rem 80px;
+    }
+}
+
+@media (max-width: 500px) {
+    .stats-grid {
+    grid-template-columns: 1fr;
+    }
+    .content {
+    padding: 1rem 0.6rem 1rem 60px;
+    }
+}

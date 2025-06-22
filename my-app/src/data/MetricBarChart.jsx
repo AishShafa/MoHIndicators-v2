@@ -70,7 +70,6 @@ const groupByOptions = [
 
 export default function MetricBarChart({ data, filters, selectedMetricType }) {
   const [selectedMetric, setSelectedMetric] = useState("Value");
-  const [groupBy, setGroupBy] = useState("Location");
 
   if (!data || !Array.isArray(data)) return null;
 
@@ -134,20 +133,6 @@ export default function MetricBarChart({ data, filters, selectedMetricType }) {
       <h3 className="text-lg font-semibold mb-2">
         {selectedMetricType} by {groupBy}
       </h3>
-
-      {/* Select groupBy */}
-      <div className="mb-4 flex flex-wrap gap-3">
-        <label className="font-medium">Group X-axis by:</label>
-        <select
-          value={groupBy}
-          onChange={e => setGroupBy(e.target.value)}
-          className="px-3 py-1 border rounded bg-gray-100"
-        >
-          {groupByOptions.map(opt => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
-        </select>
-      </div>
 
       {/* Metric type selector */}
       <div className="mb-4 flex flex-wrap gap-3">

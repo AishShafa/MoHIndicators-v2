@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import Select from "react-select";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import PublicIcon from "@mui/icons-material/Public";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import PieChartIcon from "@mui/icons-material/PieChart";
+import { Form } from "react-bootstrap";
 import "./ChartFilter.css";
 import MultiSelect from "./MultiSelect";
 
 export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters }) {
   const [view, setView] = useState("list");
-  const [groupBy, setGroupBy] = useState("Region");
 
   // Local filter state
   const [tempIndicator, setTempIndicator] = useState(null);
@@ -18,43 +12,44 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
   const [tempGenders, setTempGenders] = useState([]);
   const [tempYears, setTempYears] = useState([]);
   const [tempRegions, setTempRegions] = useState([]);
-
+  const [tempMetrics, setTempMetrics] = useState([]);
+  const [tempLocations, setTempLocations] = useState([]);
+  
   useEffect(() => {
     setTempIndicator(filters.indicator || null);
     setTempAges(filters.ages || []);
     setTempGenders(filters.genders || []);
     setTempYears(filters.years || []);
     setTempRegions(filters.regions || []);
+    setTempMetrics(filters.metrics || []);
+    setTempLocations(filters.locations || []);
     setView(filters.chartType || "list");
-    setGroupBy(filters.groupBy || "Region");
   }, [filters]);
-
-  // Toggle chart view
-  const handleViewChange = (event, nextView) => {
-    if (nextView !== null) setView(nextView);
-  };
 
   // Apply filters to parent state
   const handleApplyFilters = (e) => {
     e.preventDefault();
-
     setFilters({
       indicator: tempIndicator,
-      ages: groupBy !== "Age" ? tempAges : [],
-      genders: groupBy !== "Gender" ? tempGenders : [],
-      years: groupBy !== "Year" ? tempYears : [],
+      metrics: tempMetrics,
+      locations: tempLocations,
+      ages: tempAges,
+      genders: tempGenders,
+      years: tempYears,
       regions: tempRegions,
       chartType: view,
-      groupBy: groupBy,
     });
   };
 
   const handleClearFilters = () => {
     setTempIndicator(null);
+    setTempMetrics([]);
+    setTempLocations([]);
     setTempAges([]);
     setTempGenders([]);
     setTempYears([]);
     setTempRegions([]);
+    setView("list");
   };
 
   // Filter options
@@ -112,84 +107,72 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
     { value: "Thaa", label: "Thaa" },
   ];
 
+  const metricOptions = [
+    { value: "Number", label: "Number" },
+    { value: "Percent", label: "Percent" },
+    { value: "Rate", label: "Rate" },
+  ];
+
+  const locationOptions = [
+    { value: "Male", label: "Male" },
+    { value: "Hulhumale", label: "Hulhumale" },
+    { value: "Villingili", label: "Villingili" },
+    { value: "Phase2", label: "Phase 2" },
+    { value: "Maafushi", label: "Maafushi" },
+    { value: "Kaashidhoo", label: "Kaashidhoo" },
+  ];
+
   return (
-    <div className={`sidebar-menu ${isOpen ? "open" : ""}`}>
-      <div className="chart-filter-layout">
-        {/* Chart Type Buttons */}
-        <ToggleButtonGroup
-          orientation="horizontal"
-          value={view}
-          exclusive
-          onChange={handleViewChange}
-          className="chart-toggle-group"
-        >
-          <ToggleButton value="list" aria-label="map">
-            <PublicIcon />
-          </ToggleButton>
-          <ToggleButton value="module" aria-label="barchart">
-            <BarChartIcon />
-          </ToggleButton>
-          <ToggleButton value="quilt" aria-label="pie">
-            <PieChartIcon />
-          </ToggleButton>
-        </ToggleButtonGroup>
-
-        {/* Group By selector */}
-        <Form.Group className="mb-3" controlId="selectGroupBy">
-          <Form.Label className="custom-form-label">Group By (X-axis)</Form.Label>
-          <Select
-            options={[
-              { value: "Age", label: "Age" },
-              { value: "Gender", label: "Gender" },
-              { value: "Year", label: "Year" },
-              { value: "Region", label: "Region" },
-            ]}
-            value={{ value: groupBy, label: groupBy }}
-            onChange={(selected) => setGroupBy(selected.value)}
-          />
-        </Form.Group>
-
-        {/* Filters Section */}
-        <Form onSubmit={handleApplyFilters} className="filters-section">
-          <h3 className="filters-title">Filters</h3>
-
-          <Form.Group className="mb-3" controlId="selectIndicator">
-            <Form.Label className="custom-form-label">Indicator</Form.Label>
-            <Select
-              options={indicatorOptions}
-              value={tempIndicator}
-              onChange={setTempIndicator}
-              isSearchable
-              isMulti={false}
-              classNamePrefix="react-select"
-              placeholder="Select Indicator"
-            />
-          </Form.Group>
-
-          <MultiSelect label="Age" options={ageOptions} selectedOptions={tempAges} onChange={setTempAges} />
-          <MultiSelect label="Gender" options={genderOptions} selectedOptions={tempGenders} onChange={setTempGenders} />
-          <MultiSelect label="Year" options={yearOptions} selectedOptions={tempYears} onChange={setTempYears} />
-          <MultiSelect label="Region" options={regionOptions} selectedOptions={tempRegions} onChange={setTempRegions} />
-
-          <Button variant="success" type="submit" className="w-100 floating-submit-button">
-            Apply
-          </Button>
-
-          <div style={{ textAlign: "center", marginTop: "10px" }}>
-            <span
-              onClick={handleClearFilters}
-              style={{
-                color: "#d9d9d9",
-                cursor: "pointer",
-                textDecoration: "underline",
-                fontSize: "14px",
-                fontStyle: "italic",
-              }}
-            >
-              Clear Selection
-            </span>
+    <div className="filters-sidebar-wrapper">
+      <div className={`sidebar-menu ${isOpen ? "open" : ""} filter-card`}>
+        <div className="filters-title-row">
+          <svg className="w-5 h-5 text-emerald-500 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+          <h2 className="filters-title">Filters</h2>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm mb-2 font-semibold">Chart Type</p>
+            <div className="flex gap-1">
+              <button
+                type="button"
+                className={`chart-type-btn${view === 'module' ? ' selected' : ''} px-3 py-1 text-sm rounded-full ${view === 'module' ? 'text-white' : 'text-gray-700'}`}
+                onClick={() => setView('module')}
+                aria-label="Bar"
+              >
+                Bar
+              </button>
+              <button
+                type="button"
+                className={`chart-type-btn${view === 'list' ? ' selected' : ''} px-3 py-1 text-sm rounded-full ${view === 'list' ? 'text-white' : 'text-gray-700'}`}
+                onClick={() => setView('list')}
+                aria-label="Line"
+              >
+                Line
+              </button>
+              <button
+                type="button"
+                className={`chart-type-btn${view === 'quilt' ? ' selected' : ''} px-3 py-1 text-sm rounded-full ${view === 'quilt' ? 'text-white' : 'text-gray-700'}`}
+                onClick={() => setView('quilt')}
+                aria-label="Pie"
+              >
+                Pie
+              </button>
+            </div>
           </div>
-        </Form>
+          <Form onSubmit={handleApplyFilters} className="space-y-4">
+            <div>
+              <MultiSelect label="Indicator" options={indicatorOptions} selectedOptions={tempIndicator ? [tempIndicator] : []} onChange={selected => setTempIndicator(selected[0] || null)} isMulti={false} />
+            </div>
+            <MultiSelect label="Metric" options={metricOptions} selectedOptions={tempMetrics} onChange={setTempMetrics} />
+            <MultiSelect label="Location" options={locationOptions} selectedOptions={tempLocations} onChange={setTempLocations} />
+            <MultiSelect label="Age Group" options={ageOptions} selectedOptions={tempAges} onChange={setTempAges} />
+            <MultiSelect label="Gender" options={genderOptions} selectedOptions={tempGenders} onChange={setTempGenders} />
+            <MultiSelect label="Year" options={yearOptions} selectedOptions={tempYears} onChange={setTempYears} />
+            <MultiSelect label="Region" options={regionOptions} selectedOptions={tempRegions} onChange={setTempRegions} />
+            <button type="submit" className="w-full bg-emerald-500 text-white py-2 rounded-md font-medium hover:bg-emerald-600 transition">Apply Filters</button>
+            <button type="button" onClick={handleClearFilters} className="w-full text-gray-600 py-2 border border-gray-200 rounded-md hover:bg-gray-50 transition">Clear Selection</button>
+          </Form>
+        </div>
       </div>
     </div>
   );

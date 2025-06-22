@@ -1,13 +1,29 @@
 .bottom-bar {
-  background-color: #0e492d;
+  background-color: #10b981;
   color: white;
-  padding: 10px ;
-  position: fixed;
-  bottom: 0;
+  padding: 1rem 0;
   width: 100%;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 -2px 8px rgba(16, 185, 129, 0.08);
+}
+
+
+.static-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  background: #10b981;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
   z-index: 1000;
-    left: 0;
-    background-color: "#065f46";
-    box-shadow: "0 4px 8px rgba(0,0,0,0.3)";
+  box-shadow: 0 -2px 8px rgba(16, 185, 129, 0.08);
+  transition: opacity 0.3s;
 }

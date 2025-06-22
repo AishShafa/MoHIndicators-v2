@@ -89,9 +89,9 @@ export default function MultiSelect({ label, options, selectedOptions, onChange 
     <div className="mb-3">
       <label
         style={{
-          fontWeight: "600",
+          fontWeight: "200",
           fontSize: "15px",
-          color: "#ffffff",
+          color: "#000000", // changed from #ffffff to black
           marginBottom: "6px",
           display: "block",
         }}
