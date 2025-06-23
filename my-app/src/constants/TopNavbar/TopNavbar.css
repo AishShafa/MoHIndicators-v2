@@ -10,6 +10,13 @@
   height: 80px;
   z-index: 1000;
 }
+.navbar-wrapper {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
+  background-color: white;
+  width: 100%;
+}
+
 
 /* Brand + logo layout */
 .brand-with-logo {

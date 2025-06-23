@@ -13,6 +13,13 @@ body, html, #root {
     height: 100vh;
     overflow: hidden;
 }
+.dashboard-icon svg {
+  color: #10b981;
+  filter: drop-shadow(0 0 1px rgba(16, 185, 129, 0.5));
+  font-size: 1.9rem; 
+  
+}
+
 .sidebar {
     width: 280px;
     background: white;
@@ -20,18 +27,17 @@ body, html, #root {
     display: flex;
     flex-direction: column;
     padding: 1.5rem 1rem;
-    border-radius: 0 15px 15px 0;
     user-select: none;
     color: #046c4e;
 }
 .sidebar-header {
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    border-bottom: 2px solid #0f9f67;
+    border-bottom: 1px solid #10b981;
     padding-bottom: 0.75rem;
 }
 .sidebar-header span {
@@ -58,7 +64,7 @@ body, html, #root {
     background-color: #dcf5e9;
 }
 .sidebar-item.active {
-    background-color: #06b15f;
+    background-color: #10b981;
     color: white;
     font-weight: 700;
     box-shadow: 0 0 15px rgba(6,177,95,0.4);
@@ -80,7 +86,7 @@ body, html, #root {
     font-size: 1.8rem;
     color: #046c4e;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #06b15f;
+    border-bottom: 2px solid #10b981;
     margin-bottom: 1.8rem;
     user-select: none;
 }
@@ -109,10 +115,10 @@ body, html, #root {
 .stat-value {
     font-weight: 700;
     font-size: 2.1rem;
-    color: #06b15f;
+    color: #10b981;
 }
 .stat-change {
-    color: #12a45e;
+    color: #10b981;
     font-weight: 600;
     margin-top: 0.3rem;
     font-size: 0.85rem;
@@ -129,7 +135,7 @@ body, html, #root {
     font-weight: 700;
     font-size: 1.3rem;
     color: #046c4e;
-    border-bottom: 2px solid #06b15f;
+    border-bottom: 2px solid #10b981;
     padding-bottom: 0.6rem;
     margin-bottom: 1rem;
 }
@@ -157,7 +163,7 @@ body, html, #root {
 }
 .activity-user {
     font-weight: 600;
-    color: #049257;
+    color: #10b981;
     min-width: 80px;
 }
 .activity-action {

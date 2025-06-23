@@ -1,38 +1,36 @@
-import React, { useState } from 'react';
-import './HealthDataForm.css';
+import React, { useState } from "react";
+import "./HealthDataForm.css";
 
 const HealthDataForm = () => {
   const [formData, setFormData] = useState({
-    healthIndicator: '',
-    location: '',
-    gender: '',
-    region: '',
-    additionalNotes: '',
-    metric: '',
-    ageGroup: '',
+    healthIndicator: "",
+    location: "",
+    gender: "",
+    region: "",
+    additionalNotes: "",
+    metric: "",
+    ageGroup: "",
     year: 2025,
-    value: ''
+    value: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Here you would typically send data to your backend
+    console.log("Form submitted:", formData);
+    // data to backend
   };
 
   return (
     <div className="health-data-form">
-      <button className="back-button">
-        &larr; Back to Health Data
-      </button>
-      
+      <button className="back-button">&larr; Back to Health Data</button>
+
       <h2>Health Indicator Information</h2>
-      
+
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <div className="form-group">
@@ -175,8 +173,12 @@ const HealthDataForm = () => {
         </div>
 
         <div className="form-actions">
-          <button type="button" className="cancel-btn">Cancel</button>
-          <button type="submit" className="save-btn">Save Health Data</button>
+          <button type="button" className="cancel-btn">
+            Cancel
+          </button>
+          <button type="submit" className="save-btn">
+            Save Health Data
+          </button>
         </div>
       </form>
     </div>

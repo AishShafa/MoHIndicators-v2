@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+
 import Chart from "react-apexcharts";
-import ChartFilter from "../../components/Filter/ChartFilter"; // Adjust path
+import ChartFilter from "../../../components/Filter/ChartFilter";
+import Maps from "../Maps/Google/Google";
 
 export const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,13 +14,12 @@ export const Dashboard = () => {
     genders: [],
     years: [],
     regions: [],
-    chartType: "list",
+    chartType: "list",  // default chart type
     groupBy: "Region",
   });
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Simple example to generate data for selected years or default years
   const chartCategories =
     filters.years.length > 0
       ? filters.years.map((y) => y.value.toString())
@@ -48,9 +49,7 @@ export const Dashboard = () => {
               <div className="bg-white p-4 rounded-lg shadow-sm">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-2xl font-bold mb-1">
-                    {filters.indicator && filters.indicator.label
-                      ? filters.indicator.label
-                      : "Results"}
+                    {filters.indicator?.label || "Results"}
                   </h2>
                   <div className="flex items-center">
                     <span className="text-sm text-gray-500 mr-2">Grouped by:</span>
@@ -72,29 +71,10 @@ export const Dashboard = () => {
                   Health indicators data visualization
                 </p>
 
-                <div className="h-64">
-                  <Chart
-                    type={
-                      filters.chartType === "list"
-                        ? "line"
-                        : filters.chartType === "module"
-                        ? "bar"
-                        : "pie"
-                    }
-                    height={250}
-                    width="100%"
-                    series={[{ name: "Value", data: chartData }]}
-                    options={{
-                      chart: { toolbar: { show: false }, zoom: { enabled: false } },
-                      xaxis: { categories: chartCategories },
-                      yaxis: { min: 0, max: 3000, tickAmount: 4 },
-                      colors: ["#10b981"],
-                      plotOptions: { bar: { borderRadius: 3 } },
-                      dataLabels: { enabled: false },
-                      grid: { borderColor: "#f3f4f6", strokeDashArray: 4 },
-                    }}
-                  />
+                <div className="h-[400px]">
+                  <Maps />
                 </div>
+
               </div>
             </div>
           </div>

@@ -4,9 +4,9 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import "./Admin.css"; 
-import HealthDataForm from "../../data/HealthData/HealthDataForm";
+import HealthDataForm from "../../Private/HealthData/HealthDataForm";
 
 const sidebarItems = [
   { label: "Dashboard", icon: <HomeIcon /> },
@@ -54,7 +54,7 @@ const Admin = () => {
           role="navigation"
         >
           <div className="sidebar-header" aria-label="Admin dashboard logo and title">
-            <span aria-hidden="true"><DashboardIcon /> </span> Admin Dashboard
+            <span aria-hidden="true" className="dashboard-icon"><DashboardOutlinedIcon /></span> Admin Dashboard
           </div>
           <div className="sidebar-nav" tabIndex={-1}>
             {sidebarItems.map(({ label, icon }) => (

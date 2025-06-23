@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import "./ChartFilter.css";
 import MultiSelect from "./MultiSelect";
+import Maps from "../../pages/Public/Maps/Google/Google"; // Adjust the import path as needed
 
 export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters }) {
   const [view, setView] = useState("list");
@@ -155,7 +156,19 @@ export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters })
                 onClick={() => setView('quilt')}
                 aria-label="Pie"
               >
-                Pie
+                 Pie
+              </button>
+              <button
+                type="button"
+                className={`chart-type-btn${
+                  view === "map" ? " selected" : ""
+                } px-3 py-1 text-sm rounded-full ${
+                  view === "map" ? "text-white" : "text-gray-700"
+                }`}
+                onClick={() => setView("map")}
+                aria-label="Map"
+              >
+                Map
               </button>
             </div>
           </div>
