@@ -9,11 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
 app.use(cors({
   origin: "http://localhost:3000", // Allow requests from the frontend
   credentials: true,              // Allow credentials (if needed)
 }))
 
+=======
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 const db = knex({
   client: 'pg',
   connection: {
@@ -27,6 +30,7 @@ const db = knex({
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
+<<<<<<< HEAD
   console.log("Received email:", email);
     console.log("Received password:", password);
 
@@ -34,6 +38,8 @@ app.post('/login', async (req, res) => {
         console.log("Missing email or password");
         return res.status(400).json({ error: "Email and password are required." });
     }
+=======
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
   try {
     const user = await db('auth.users')
@@ -112,10 +118,13 @@ app.listen(8080, () => console.log('Server running on port 8080'));
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   console.log("Attempting login for:", email);
+<<<<<<< HEAD
   app.get('/login', (req, res) => {
   res.send("This is the login endpoint. Use POST to submit credentials.");
 });
 
+=======
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
   try {
     const user = await db('auth.users')

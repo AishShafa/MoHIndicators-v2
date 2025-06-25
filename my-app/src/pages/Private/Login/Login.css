@@ -12,7 +12,11 @@
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
+<<<<<<< HEAD
   color: #10b981;
+=======
+  color: green;
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
   margin-bottom: 390px;
 }
 
@@ -20,9 +24,16 @@
     font-weight: 600;
     font-size: 1.7rem;
     margin-bottom: 1.5rem;
+<<<<<<< HEAD
     align-items: center;
     text-align: center;
     color: #0c855c;
+=======
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: green;
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     gap: 0.6rem;
     border-bottom: 1px solid #10b981;
     padding-bottom: 0.75rem;

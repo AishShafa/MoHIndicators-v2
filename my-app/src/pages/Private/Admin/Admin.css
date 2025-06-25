@@ -10,13 +10,21 @@ body, html, #root {
 }
 .admin-dashboard {
     display: flex;
+<<<<<<< HEAD
     height: 87.2vh;
+=======
+    height: 100vh;
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     overflow: hidden;
 }
 .dashboard-icon svg {
   color: #10b981;
+<<<<<<< HEAD
   margin-bottom: 10px;
   filter: drop-shadow(0 0 0.5px rgba(16, 185, 129, 0.5));
+=======
+  filter: drop-shadow(0 0 1px rgba(16, 185, 129, 0.5));
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
   font-size: 1.9rem; 
   
 }
@@ -31,6 +39,7 @@ body, html, #root {
     user-select: none;
     color: #046c4e;
 }
+<<<<<<< HEAD
 
 .sidebar-header {
     font-weight: 620;
@@ -38,6 +47,17 @@ body, html, #root {
     margin-bottom: 1.5rem;
     align-items: center;
     border-bottom: 1px solid #10b981;
+=======
+.sidebar-header {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid #10b981;
+    padding-bottom: 0.75rem;
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 }
 .sidebar-header span {
     font-size: 1.7rem;
@@ -67,7 +87,10 @@ body, html, #root {
     color: white;
     font-weight: 700;
     box-shadow: 0 0 15px rgba(6,177,95,0.4);
+<<<<<<< HEAD
     height: 45px;
+=======
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 }
 .sidebar-item .icon {
     font-size: 1.3rem;

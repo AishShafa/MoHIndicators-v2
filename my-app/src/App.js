@@ -5,13 +5,21 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 // Components
 import BottomBar from "./constants/BottomBar/BottomBar";
+<<<<<<< HEAD
 import TopNavBar from "./constants/TopNavbar/TopNavbar";
+=======
+import TopNavBar from "./constants/TopNavBar/TopNavbar";
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
 // Pages
 import Dashboard from "./pages/Public/Dashboard/Dashboard";
 import LoginPage from "./pages/Private/Login/Login";
 import SamplePage from "./pages/Public/Dashboard/dashboardsample";
+<<<<<<< HEAD
 import HomePage from "./pages/Private/Admin/Admin";
+=======
+import HomePage from "./pages/Public/Dashboard/Dashboard";
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 import AdminPage from "./pages/Private/Admin/Admin";
 import RegisterPage from "./pages/Private/Admin/Register"; 
 

@@ -8,8 +8,11 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     console.log("Email:", email);
     console.log("Password:", password);
+=======
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
     try {
     const response = await fetch("http://localhost:8080/login", {

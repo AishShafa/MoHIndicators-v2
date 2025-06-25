@@ -2,7 +2,11 @@ import React, { useState, useRef } from "react";
 
 import Chart from "react-apexcharts";
 import ChartFilter from "../../../components/Filter/ChartFilter";
+<<<<<<< HEAD
 import Maps from "../Maps/Maps";
+=======
+import Maps from "../Maps/Google/Google";
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
 export const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -84,4 +88,8 @@ export const Dashboard = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Dashboard;
+=======
+export default Dashboard;
+>>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
