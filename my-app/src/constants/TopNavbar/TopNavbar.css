@@ -1,0 +1,52 @@
+/* Brand + logo layout */
+.brand-with-logo {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Increase spacing between logo and text */
+}
+
+.logo-image {
+  height: 50px; /* Adjust logo size */
+  width: auto;
+}
+
+.line-one {
+  color: black;
+  font-size: 1.25rem; /* Slightly smaller title */
+  font-weight: 600; /* Adjust weight for boldness */
+}
+
+.line-two {
+  font-weight: 400;
+  font-size: 0.9rem; /* Slightly smaller subtitle */
+  color: #6b7280; /* Tailwind's gray-500 */
+}
+
+/* Navigation links */
+.navbar {
+  display: flex;
+  gap: 2rem; /*  spacing between links */
+}
+
+.nav-link {
+  color: #4b5563; /* Tailwind's gray-600 */
+  font-size: 1.0rem;
+  font-weight: 5000;
+  font-family:  sans-serif; 
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #1f2937; /* Tailwind's gray-900 */
+}
+
+header {
+  min-height: 48px; /* Set a shorter minimum height */
+  padding-top: 0.5rem !important; /* Reduce vertical padding */
+  padding-bottom: 0.5rem !important;
+}
+
+.flex.items-center {
+  min-height: 48px; /* Ensure flex container is also shorter */
+}

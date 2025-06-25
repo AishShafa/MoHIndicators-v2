@@ -1,0 +1,144 @@
+/* Ensure the entire page is scrollable if content overflows */
+html, body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* ChartFilter layout scrollable inside sidebar */
+.chart-filter-layout {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 1rem 0;
+  min-height: 0;
+}
+
+/* Chart toggle buttons (MUI toggle overrides) */
+.chart-toggle-group .MuiToggleButton-root {
+  border: 1px solid #ccc !important;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  color: #333;
+}
+
+.chart-toggle-group .Mui-selected {
+  background-color: #e0f2f1 !important;
+  border-color: #198754 !important;
+  color: #198754 !important;
+}
+
+/* Filters section wrapper */
+.filters-section {
+  padding: 0px;
+}
+
+.filters-sidebar-wrapper {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Filters title */
+.filters-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.filters-title {
+  font-size: 1.6rem;
+  color: #000000;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Filter card */
+.filter-card {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px 24px 24px 24px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Submit/apply button */
+.floating-submit-button {
+  border-radius: 22px !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: #10b981 !important;
+  border: none !important;
+  margin-top: 10px;
+  margin-bottom: 2px; /* Reduce bottom margin */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.floating-submit-button:hover {
+  background: #059669 !important;
+}
+
+/* Clear selection link */
+.clear-selection-link {
+  color: #000000;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 13px; /* Slightly smaller */
+  font-style: italic;
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Custom form label */
+.custom-form-label {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* Chart type button */
+.chart-type-btn {
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  background: #fff;
+  transition: border-color 0.2s, background 0.2s;
+  margin-right: 6px;
+  min-width: 38px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+.chart-type-btn.selected {
+  border-color: #10b981;
+  background: #10b981;
+  color: #fff;
+}
+
+/* Static bottom bar */
+.static-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  background: #10b981;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  z-index: 1000;
+  box-shadow: 0 -2px 8px rgba(16, 185, 129, 0.08);
+}

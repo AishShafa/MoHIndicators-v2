@@ -1,0 +1,211 @@
+/* ==== LAYOUT CONTAINERS ==== */
+
+/* Main dashboard layout using grid */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 295px 1fr; /* Sidebar , Main content */
+  gap: 0;
+  height: 100vh;
+  max-height: 790px;
+  overflow: hidden;
+}
+
+/* Sidebar styling */
+.sidebar-container {
+  background: #fff;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area */
+.main-content {
+  background: #f3f4f6;
+  overflow-y: auto;
+  padding: 24px 42px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+/* Sidebar positioning */
+.sidebar-menu {
+  min-width: 260px;
+  transition: all 0.3s ease;
+  background: #fff;
+  padding: 16px;
+  flex-shrink: 0;
+}
+.sidebar-menu.collapsed {
+  width: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none;
+}
+
+/* Card body fills remaining height */
+.main-content .card .card-body {
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+}
+
+/* ==== FILTERS TITLE ==== */
+.filters-title {
+  color: #000000;
+  margin: 0;
+  font-size: 1.9rem;
+  text-align: start;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+/* ==== TOGGLE BUTTON STYLES ==== */
+.results-header {
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+/* Wrapper for toggle buttons */
+.toggle-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  height: auto; /* ensure height is only as needed */
+}
+
+.toggle-group-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* Individual toggle buttons */
+.toggle-group .toggle-btn {
+  flex: 1;
+  text-align: center;
+  background-color: #ffffff;
+  color: #1f2937; /* default text color */
+  border: 2px solid #e5e7eb; /* light gray */
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem; /* reduced font size for smaller height */
+  transition: all 0.3s ease;
+}
+
+/* Hover effect (light green background) */
+.toggle-group .toggle-btn:hover {
+  background-color: #ecfdf5;
+  color: #059669;
+  border-color: #2ccd94;
+}
+
+/* Active/selected style (deep green) */
+.toggle-group .toggle-btn.active {
+  background-color: #059669;
+  color: white;
+  border-color: #059669;
+  font-weight: 600;
+}
+
+/* Results card styles */
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  margin: 0;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 !important;
+}
+
+/* === RESULTS HEADER SECTION === */
+.results-header {
+  padding: 32px 32px 0 32px;
+}
+
+.results-header h2 {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 0;
+}
+
+.results-subtext {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+/* === SUMMARY CARDS === */
+.summary-cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.summary-card {
+  flex: 1;
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+}
+
+.summary-icon-green {
+  background: #e0f2f1;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-icon-purple {
+  background: #ede9fe;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-text-label {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.summary-text-value {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* === PANE CONTENT === */
+.pane-content {
+  padding: 24px;
+}
+
+.pane-content.charts {
+  padding: 0 32px 32px 32px;
+}
