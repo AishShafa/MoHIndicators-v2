@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
+import { useNavigate } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 import BarChartIcon from '@mui/icons-material/BarChartOutlined';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
 import LogoutIcon from '@mui/icons-material/LogoutOutlined';
-=======
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import "./Admin.css"; 
 import HealthDataForm from "../../Private/HealthData/HealthDataForm";
@@ -22,11 +15,7 @@ const sidebarItems = [
   { label: "Users", icon: <PeopleIcon /> },
   { label: "Reports", icon: <BarChartIcon /> },
   { label: "Settings", icon: <SettingsIcon /> },
-<<<<<<< HEAD
   { label: "Health Data", icon: <MonitorHeartOutlinedIcon /> },
-=======
-  { label: "Health Data", icon: <BarChartIcon /> },
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
   { label: "Logout", icon: <LogoutIcon /> },
 ];
 
@@ -45,6 +34,27 @@ const recentActivities = [
 
 const Admin = () => {
   const [activeSidebar, setActiveSidebar] = useState("Dashboard");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("authToken")); // Track login status
+  const navigate = useNavigate();
+ 
+{ 
+  // Logout handler
+  const handleLogout = () => {
+    // Clear user data (e.g., token)
+    localStorage.removeItem("authToken"); // Example key
+    sessionStorage.removeItem("userSession");
+    setIsLoggedIn(false);
+    // Redirect to login page
+    navigate("/login");
+  };
+  const handleSidebarClick = (label) => {
+    if (label === "Logout") {
+      handleLogout();
+    } else {
+      setActiveSidebar(label);
+    }
+  };
+
   const [healthData, setHealthData] = useState([]);
   const [newHealthEntry, setNewHealthEntry] = useState("");
   const handleAddHealthData = () => {
@@ -78,13 +88,13 @@ const Admin = () => {
                 }
                 role="button"
                 tabIndex={0}
-                onClick={() => setActiveSidebar(label)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setActiveSidebar(label);
-                  }
-                }}
-                aria-current={activeSidebar === label ? "page" : undefined}
+                onClick={() => handleSidebarClick(label)}
+               onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleSidebarClick(label);
+                }
+              }}
+              aria-current={activeSidebar === label ? "page" : undefined}
               >
                 <span className="icon" aria-hidden="true">
                   {icon}
@@ -96,7 +106,6 @@ const Admin = () => {
         </nav>
 
         <section className="content" aria-label={`${activeSidebar} panel`}>
-<<<<<<< HEAD
           {activeSidebar !== "Health Data" && (
             <div className="header-row" style={{ gap: '10px' }}>
               <button className="back-button" style={{ visibility: 'hidden', width: 0, padding: 0, margin: 0, minWidth: 0 }} aria-hidden="true" tabIndex={-1} />
@@ -110,11 +119,6 @@ const Admin = () => {
               </div>
             </div>
           )}
-=======
-          <header className="header" tabIndex={-1}>
-            {activeSidebar}
-          </header>
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
           {activeSidebar === "Dashboard" && (
             <>
@@ -149,11 +153,7 @@ const Admin = () => {
 
           {activeSidebar === "Health Data" && (
             <div>
-<<<<<<< HEAD
               <HealthDataForm />
-=======
-              {activeSidebar === "Health Data" && <HealthDataForm />}
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
             </div>
           )}
 
@@ -181,10 +181,12 @@ const Admin = () => {
             </p>
           )}
         </section>
-      </div>
+
+    </div>
     </>
   );
 };
+}
 
 export default Admin;
 

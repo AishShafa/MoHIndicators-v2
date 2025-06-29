@@ -1,37 +1,40 @@
 import React, { useState } from "react";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    console.log("Email:", email);
-    console.log("Password:", password);
-=======
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
+    setError(null); // Reset error state
+    setLoading(true); // Start loading indicator
 
     try {
-    const response = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-      const data = await response.json();
+        const response = await fetch("http://localhost:5000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }), 
+        });
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        const data = await response.json();
 
-        alert(`Welcome ${data.user.username}! Your role is: ${data.user.role}`);
+        if (response.ok) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Navigate to dashboard if using react-router
-        // navigate("/dashboard");
+            alert(`Welcome ${data.user.username}!`);
+            
+            navigate("/admin"); 
+
       } else {
         alert(data.error || "Login failed");
       }

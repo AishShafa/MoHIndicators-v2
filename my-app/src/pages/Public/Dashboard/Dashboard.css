@@ -3,11 +3,7 @@
 /* Main dashboard layout using grid */
 .dashboard-layout {
   display: grid;
-<<<<<<< HEAD
   grid-template-columns: 295px 1fr; /* Sidebar , Main content */
-=======
-  grid-template-columns: 295px 1fr; /* Sidebar | Main content */
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
   gap: 0;
   height: 100vh;
   max-height: 790px;

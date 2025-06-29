@@ -13,7 +13,7 @@ export default function Register() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("http://localhost:8080/Register", {
+      const response = await fetch("http://localhost:5000/Register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

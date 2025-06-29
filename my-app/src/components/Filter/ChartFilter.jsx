@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import "./ChartFilter.css";
 import MultiSelect from "./MultiSelect";
-<<<<<<< HEAD
-=======
-import Maps from "../../pages/Public/Maps/Google/Google"; // Adjust the import path as needed
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
 export default function ChartFilter({ isOpen, toggleMenu, filters, setFilters }) {
   const [view, setView] = useState("list");

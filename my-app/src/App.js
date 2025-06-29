@@ -1,34 +1,55 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Components
 import BottomBar from "./constants/BottomBar/BottomBar";
-<<<<<<< HEAD
 import TopNavBar from "./constants/TopNavbar/TopNavbar";
-=======
-import TopNavBar from "./constants/TopNavBar/TopNavbar";
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 
 // Pages
 import Dashboard from "./pages/Public/Dashboard/Dashboard";
 import LoginPage from "./pages/Private/Login/Login";
 import SamplePage from "./pages/Public/Dashboard/dashboardsample";
-<<<<<<< HEAD
 import HomePage from "./pages/Private/Admin/Admin";
-=======
-import HomePage from "./pages/Public/Dashboard/Dashboard";
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
 import AdminPage from "./pages/Private/Admin/Admin";
 import RegisterPage from "./pages/Private/Admin/Register"; 
+import { Refresh } from '@mui/icons-material';
 
 function App() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser || null); // Ensure user is set to null if no stored user
+  }, []);
+
+
+  const handleLogout = () => {
+    const setTokens = (data) => {
+
+if (data) {
+
+// user login
+
+localStorage.setItem("tokens", JSON.stringify(data));
+
+} else {
+
+// user logout
+
+localStorage.removeItem("tokens");
+
+}
+    localStorage.removeItem("user");
+    setUser(null);
+
+};
+  };
 
   return (
     <Router>
-      <TopNavBar />
+      <TopNavBar user={user} onLogout={handleLogout} />
 
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -36,14 +57,16 @@ function App() {
         <Route path="/about" element={<SamplePage />} />
         <Route path="/home" element={<HomePage />} />
 
-        {/* Protected Admin Route */}
+        <Route path="/admin" element={user ? <AdminPage /> : <Navigate to="/login" />} />
+
+        {/*  Admin Route */}
         <Route
           path="/admin"
           element={
-            user && user.role.toLowerCase() === "admin" ? (
-              <AdminPage />
+            user?.role?.toLowerCase() === "admin" ? (
+              <LoginPage />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/admin" />
             )
           }
         />
@@ -52,7 +75,7 @@ function App() {
         <Route
           path="/register"
           element={
-            user && user.role.toLowerCase() === "admin" ? (
+            user?.role?.toLowerCase() === "admin" ? (
               <RegisterPage />
             ) : (
               <Navigate to="/" />
@@ -64,7 +87,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            user && user.role.toLowerCase() === "admin" ? (
+            user?.role?.toLowerCase() === "admin" ? (
               <AdminPage />
             ) : (
               <Dashboard />
@@ -77,5 +100,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

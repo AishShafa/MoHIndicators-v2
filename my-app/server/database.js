@@ -9,15 +9,13 @@ const pool = new Pool({
 
 
 });
-pool.connqueryect((err) => { 
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("Connected to the PostgreSQL database");
-    }               
-
+pool.query ("CREATE DATABASE health_indicators;")
+    .then ((Response) => {
+    console.log("Database created successfully", Response);
+})
+.catch((err) => {
+    console.error("Error creating database", err);
 });
-module.exports = {
-    query: (text, params) => pool.query(text, params),
-    pool: pool
-};
+
+module.exports = pool;
+

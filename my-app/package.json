@@ -3,17 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@deck.gl/layers": "^9.1.12",
     "@deck.gl/react": "^9.1.12",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@luma.gl/core": "^9.1.9",
     "@luma.gl/webgl": "^9.1.9",
-=======
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     "@mui/icons-material": "^7.1.1",
     "@mui/material": "^7.1.1",
     "@radix-ui/react-slot": "^1.2.3",
@@ -24,49 +19,40 @@
     "@testing-library/user-event": "^13.5.0",
     "@vis.gl/react-google-maps": "^1.5.3",
     "apexcharts": "^4.7.0",
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
     "bootstrap": "^5.3.6",
     "chart.js": "^4.5.0",
     "chartjs-plugin-datalabels": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
-<<<<<<< HEAD
     "d3": "^7.9.0",
     "deck.gl": "^8.0.0",
-=======
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
-<<<<<<< HEAD
     "leaflet": "^1.9.4",
-=======
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     "lucide-react": "^0.515.0",
     "papaparse": "^5.5.3",
-    "pg": "^8.16.2",
+    "pg": "^8.16.3",
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
     "react-bootstrap": "^2.10.10",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-<<<<<<< HEAD
     "react-leaflet": "^5.0.0",
     "react-map-gl": "^8.0.4",
-=======
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     "react-router-dom": "^7.6.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.10.1",
     "recharts": "^2.15.3",
     "tailwind-merge": "^3.3.1",
-<<<<<<< HEAD
     "topojson-client": "^3.1.0",
-=======
->>>>>>> c2cc97f8ad3d73f1ef9103496a1b33c6f5c40c73
     "tw-animate-css": "^1.3.4",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
