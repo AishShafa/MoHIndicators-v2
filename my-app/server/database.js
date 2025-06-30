@@ -9,6 +9,9 @@ const pool = new Pool({
 
 
 });
+
+
+
 pool.query ("CREATE DATABASE health_indicators;")
     .then ((Response) => {
     console.log("Database created successfully", Response);

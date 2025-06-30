@@ -1,105 +1,72 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Components
-import BottomBar from "./constants/BottomBar/BottomBar";
 import TopNavBar from "./constants/TopNavbar/TopNavbar";
 
 // Pages
 import Dashboard from "./pages/Public/Dashboard/Dashboard";
-import LoginPage from "./pages/Private/Login/Login";
 import SamplePage from "./pages/Public/Dashboard/dashboardsample";
-import HomePage from "./pages/Private/Admin/Admin";
-import AdminPage from "./pages/Private/Admin/Admin";
-import RegisterPage from "./pages/Private/Admin/Register"; 
-import { Refresh } from '@mui/icons-material';
 
-function App() {
-  const [user, setUser] = useState(null);
+const Login = lazy(() => import("./pages/Private/Login/Login"));
+const RegisterPage = lazy(() => import("./pages/Private/Admin/Register"));
+const NotFound = lazy(() => import("./pages/Public/NotFound/NotFound"));
+const Admin = lazy(() => import("./pages/Private/Admin/Admin"));
 
+const App = () => {
+  const [userData, setUserData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check authentication status on app load
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser || null); // Ensure user is set to null if no stored user
+    const token = localStorage.getItem("token");
+    const keepLoggedIn = JSON.parse(localStorage.getItem("keepLoggedIn")) || false;
+    const storedUserData = JSON.parse(localStorage.getItem("userData")) || null;
+    
+    if (token && keepLoggedIn && storedUserData) {
+      setIsLoggedIn(true);
+      setUserData(storedUserData);
+    }
   }, []);
 
-
   const handleLogout = () => {
-    const setTokens = (data) => {
-
-if (data) {
-
-// user login
-
-localStorage.setItem("tokens", JSON.stringify(data));
-
-} else {
-
-// user logout
-
-localStorage.removeItem("tokens");
-
-}
-    localStorage.removeItem("user");
-    setUser(null);
-
-};
+    localStorage.removeItem("token");
+    localStorage.removeItem("keepLoggedIn");
+    localStorage.removeItem("userData");
+    setIsLoggedIn(false);
+    setUserData(null);
   };
 
   return (
     <Router>
-      <TopNavBar user={user} onLogout={handleLogout} />
-
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/about" element={<SamplePage />} />
-        <Route path="/home" element={<HomePage />} />
-
-        <Route path="/admin" element={user ? <AdminPage /> : <Navigate to="/login" />} />
-
-        {/*  Admin Route */}
-        <Route
-          path="/admin"
-          element={
-            user?.role?.toLowerCase() === "admin" ? (
-              <LoginPage />
-            ) : (
-              <Navigate to="/admin" />
-            )
-          }
-        />
-
-        {/* Register page only for admin */}
-        <Route
-          path="/register"
-          element={
-            user?.role?.toLowerCase() === "admin" ? (
-              <RegisterPage />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
-        {/* Dashboard route based on role */}
-        <Route
-          path="/dashboard"
-          element={
-            user?.role?.toLowerCase() === "admin" ? (
-              <AdminPage />
-            ) : (
-              <Dashboard />
-            )
-          }
-        />
-      </Routes>
-
-      <BottomBar />
+      <TopNavBar userData={userData} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/login"
+            element={isLoggedIn ? <Navigate to="/admin" /> : <Login />}
+          />
+          <Route path="/about" element={<SamplePage />} />
+          <Route path="/home" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={true}
+        closeOnClick
+        theme="colored"
+      /> 
     </Router>
   );
-}
-
+};
 
 export default App;

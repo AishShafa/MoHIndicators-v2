@@ -3,6 +3,7 @@
   padding: 30px;
   background: white;
   border-radius: 12px;
+  margin-top: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -44,7 +45,7 @@
 
 .page-title {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 300;
   color: #111827;
   line-height: 1.1;
   display: flex;
@@ -54,7 +55,7 @@
 
 .page-title-underline {
   width: 44px;
-  height: 4px;
+  height: 3px;
   background: #10b981;
   margin-top: 6px;
 }
