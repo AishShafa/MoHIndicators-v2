@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
-import Chart from "react-apexcharts";
 import ChartFilter from "../../../components/Filter/ChartFilter";
 import Maps from "../Maps/Maps";
 
@@ -17,22 +16,22 @@ export const Dashboard = () => {
     chartType: "list",  // default chart type
     groupBy: "Region",
   });
+  
+
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const chartCategories =
-    filters.years.length > 0
-      ? filters.years.map((y) => y.value.toString())
-      : ["2023", "2024", "2025"];
 
-  const chartData = chartCategories.map(() =>
-    Math.floor(2000 + Math.random() * 1000)
-  );
+
 
   return (
     <div id="webcrumbs">
       <div className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4">
+
+          {/* Public Dashboard Content */}
           <div className="grid grid-cols-12 gap-6 mt-6">
             {/* Sidebar Filter */}
             <div className="col-span-12 md:col-span-3">

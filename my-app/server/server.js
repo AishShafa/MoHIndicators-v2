@@ -365,6 +365,89 @@ const logUserActionWithCustomThreshold = async (userId, action, metadata = null,
     }
 };
 
+// Get dashboard statistics endpoint (admin only)
+app.get('/admin/dashboard-stats', verifyToken, verifyAdmin, async (req, res) => {
+    try {
+        // Total users count
+        const totalUsersResult = await pool.query('SELECT COUNT(*) FROM users');
+        const totalUsers = parseInt(totalUsersResult.rows[0].count);
+
+        // Active sessions (users with history in past 7 days)
+        const activeSessionsResult = await pool.query(`
+            SELECT COUNT(DISTINCT user_id) FROM users_history 
+            WHERE action_timestamp > NOW() - INTERVAL '7 days'
+        `);
+        const activeSessions = parseInt(activeSessionsResult.rows[0].count);
+
+        // New signups (users registered in past 7 days)
+        const newSignupsResult = await pool.query(`
+            SELECT COUNT(DISTINCT user_id) FROM users_history 
+            WHERE action LIKE '%POST /register%' 
+            AND action_timestamp > NOW() - INTERVAL '7 days'
+        `);
+        const newSignups = parseInt(newSignupsResult.rows[0].count);
+
+        // Data logged (total entries logged by users in past 7 days)
+        const dataLoggedResult = await pool.query(`
+            SELECT COUNT(*) FROM users_history 
+            WHERE user_id IS NOT NULL 
+            AND action_timestamp > NOW() - INTERVAL '7 days'
+        `);
+        const dataLogged = parseInt(dataLoggedResult.rows[0].count);
+
+        // Recent activity (last 10 actions)
+        const recentActivityResult = await pool.query(`
+            SELECT 
+                uh.id,
+                uh.user_id,
+                u.username,
+                uh.action,
+                uh.action_timestamp,
+                uh.metadata
+            FROM users_history uh
+            LEFT JOIN users u ON uh.user_id = u.id
+            ORDER BY uh.action_timestamp DESC
+            LIMIT 10
+        `);
+
+        // User growth trend (past 30 days)
+        const userGrowthResult = await pool.query(`
+            SELECT 
+                DATE(created_at) as date,
+                COUNT(*) as count
+            FROM users 
+            WHERE created_at > NOW() - INTERVAL '30 days'
+            GROUP BY DATE(created_at)
+            ORDER BY date DESC
+        `);
+
+        // Activity trend (past 7 days)
+        const activityTrendResult = await pool.query(`
+            SELECT 
+                DATE(action_timestamp) as date,
+                COUNT(*) as count
+            FROM users_history 
+            WHERE action_timestamp > NOW() - INTERVAL '7 days'
+            GROUP BY DATE(action_timestamp)
+            ORDER BY date DESC
+        `);
+
+        res.json({
+            stats: {
+                totalUsers,
+                activeSessions,
+                newSignups,
+                dataLogged
+            },
+            recentActivity: recentActivityResult.rows,
+            userGrowth: userGrowthResult.rows,
+            activityTrend: activityTrendResult.rows
+        });
+    } catch (err) {
+        console.error('Error fetching dashboard stats:', err);
+        res.status(500).json({ error: 'Server error while fetching dashboard statistics' });
+    }
+});
 
 // Start the server
 app.listen(port, () => {

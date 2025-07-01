@@ -38,6 +38,15 @@
 }
 
 body, html {
-  overflow: hidden; /* disables outer scroll */
+  overflow: hidden; /* Disable scrolling like before */
   height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Make content fit viewport accounting for bottom bar */
+#root {
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
 }

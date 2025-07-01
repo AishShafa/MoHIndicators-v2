@@ -1,5 +1,6 @@
 .health-data-form {
   max-width: 1800px;
+  max-height: 700px;
   padding: 30px;
   background: white;
   border-radius: 12px;
@@ -43,21 +44,60 @@
   margin-bottom: 18px;
 }
 
-.page-title {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #111827;
-  line-height: 1.1;
+.admin-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* Common dashboard containers used by user pages */
+.admin-dashboard-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.1rem;
+  height: 90%;
+  margin-top: 10px;
 }
 
-.page-title-underline {
-  width: 44px;
-  height: 3px;
-  background: #10b981;
-  margin-top: 6px;
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  flex: 1;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1f2937;
+  background: linear-gradient(135deg, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-subtitle {
+  margin: 0.25rem 0 0 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .health-data-form h2 {
@@ -109,7 +149,7 @@
   padding: 14px 16px;
   border: 1.5px solid #e3e6ea;
   border-radius: 8px;
-  font-size: 1.05rem;
+  font-size: 0.91rem;
   background-color: #fff;
   color: #222;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -132,7 +172,7 @@
 }
 
 .form-group textarea {
-  min-height: 100px;
+  min-height: 90px;
   resize: vertical;
 }
 
@@ -140,8 +180,8 @@
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid #e9ecef;
 }
 

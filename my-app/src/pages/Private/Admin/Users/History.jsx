@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Admin.css';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import './Users.css';
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -11,7 +12,7 @@ const History = () => {
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(9); // 9 items per page
+  const [itemsPerPage] = useState(7); // 7 items per page
   // Fetch user history from server
   // Note: Server-side duplicate action prevention is implemented to avoid
   // logging repeated actions (like viewing this history page) within short time frames
@@ -144,46 +145,38 @@ const History = () => {
   };
 
   return (
-    <div className="users-section">
-      <div className="header-row">
-        <div className="page-title">
-          Users History
-          <div className="page-title-underline" />
+      <div className="admin-dashboard-container">
+        <div className="dashboard-header">
+          <div className="header-content">
+            <h1 className="dashboard-title">Users History</h1>
+            <p className="dashboard-subtitle">
+              View and search the history of user actions including logins, data retrieval, and modifications.
+            </p>
+          </div>
+          <div className="header-actions">
+            <button 
+              className="refresh-btn"
+              onClick={fetchHistory}
+              disabled={loading}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#10b981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading ? 0.6 : 1
+              }}
+            >
+              <RefreshIcon />
+              {loading ? 'Refreshing...' : 'Refresh'}
+            </button>
+          </div>
         </div>
-        <button 
-          className="refresh-btn"
-          onClick={fetchHistory}
-          disabled={loading}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#10b981',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            opacity: loading ? 0.6 : 1
-          }}
-        >
-          {loading ? 'Refreshing...' : 'Refresh'}
-        </button>
-      </div>
-
-      {error && (
-        <div style={{
-          backgroundColor: '#fee2e2',
-          color: '#dc2626',
-          padding: '12px',
-          borderRadius: '8px',
-          marginBottom: '16px',
-          border: '1px solid #fecaca'
-        }}>
-          {error}
-        </div>
-      )}
 
       <div className="health-data-form users-content">
         {/* Filters */}
-        <div className="form-section" style={{ marginBottom: '20px' }}>
+        <div className="form-section" style={{ marginBottom: '1px' }}>
           <div className="form-group">
             <label htmlFor="searchHistory">Search History</label>
             <input

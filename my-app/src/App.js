@@ -7,13 +7,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 // Components
 import TopNavBar from "./constants/TopNavbar/TopNavbar";
+import BottomBar from './constants/BottomBar/BottomBar';  
 
 // Pages
 import Dashboard from "./pages/Public/Dashboard/Dashboard";
 import SamplePage from "./pages/Public/Dashboard/dashboardsample";
 
 const Login = lazy(() => import("./pages/Private/Login/Login"));
-const RegisterPage = lazy(() => import("./pages/Private/Admin/Register"));
+const RegisterPage = lazy(() => import("./pages/Private/Admin/Users/Register"));
 const NotFound = lazy(() => import("./pages/Public/NotFound/NotFound"));
 const Admin = lazy(() => import("./pages/Private/Admin/Admin"));
 
@@ -65,6 +66,7 @@ const App = () => {
         closeOnClick
         theme="colored"
       /> 
+      <BottomBar />
     </Router>
   );
 };

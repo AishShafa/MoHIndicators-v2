@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/SaveOutlined";
-import "./Register.css";
+import "./Users.css";
 
 export default function Register({ onUserRegistered, onNavigateBack }) {
   const [username, setUsername] = useState("");
@@ -66,17 +66,22 @@ export default function Register({ onUserRegistered, onNavigateBack }) {
   };
 
   return (
-    <>
-      <div className="header-row">
-        <button className="back-button" onClick={() => onNavigateBack && onNavigateBack()}>
+    <div className="admin-dashboard-container">
+      <div className="dashboard-header">
+        <div className="header-content">
+          <h1 className="dashboard-title">Create New User</h1>
+          <p className="dashboard-subtitle">
+            Create a new account along with their username, email, password and role.
+          </p>
+          </div>
+          <div className="header-actions">
+          <button className="back-button" onClick={() => onNavigateBack && onNavigateBack()}>
           <ArrowBackIcon style={{ marginRight: 8, verticalAlign: "middle" }} />
           Manage Users
         </button>
-        <div className="page-title">
-          Register New User
-          <div className="page-title-underline" />
         </div>
       </div>
+      
       <div className="register-form-container">
         <form onSubmit={handleRegister} className="register-form">
           <div className="form-section">
@@ -149,6 +154,6 @@ export default function Register({ onUserRegistered, onNavigateBack }) {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }

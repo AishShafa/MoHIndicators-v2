@@ -7,11 +7,11 @@ body, html, #root {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     background: #f9fafb;
     color: #111827;
+    overflow: hidden; /* Restore no-scroll behavior */
 }
 .admin-dashboard {
     display: flex;
-    
-    height: 87.2vh;
+    height: calc(100vh - 30px); /* Account for smaller bottom bar height */
     overflow: hidden;
 }
 .dashboard-icon svg {
@@ -27,16 +27,18 @@ body, html, #root {
     box-shadow: 0 0 15px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 1rem 1.5rem 1rem; /* Reduce top padding to move content up */
+    padding: 0.5rem 1rem 2rem 1rem; /* Reduced bottom padding */
     user-select: none;
     color: #046c4e;
     transition: width 0.3s ease;
     position: relative;
+    height: calc(100vh - 30px); /* Account for smaller bottom bar */
+    overflow-y: auto;
 }
 
 .sidebar.collapsed {
     width: 80px;
-    padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+    padding: 0.5rem 0.5rem 2rem 0.5rem; /* Reduced bottom padding */
 }
 
 .sidebar.collapsed .sidebar-item span:not(.icon) {
@@ -66,7 +68,7 @@ body, html, #root {
 }
 .sidebar-item {
     margin-top: 25px;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1.6rem;
     border-radius: 10px;
     margin-bottom: 0.75rem;
     cursor: pointer;
@@ -83,7 +85,7 @@ body, html, #root {
 
 .sidebar.collapsed .sidebar-item {
     justify-content: center;
-    padding: 0.75rem 0.5rem;
+    padding: 0.4rem 1.2rem;
     gap: 0;
 }
 .sidebar-item:hover {
@@ -103,9 +105,9 @@ body, html, #root {
 
 /* Sidebar Toggle Button */
 .sidebar-toggle {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
+    position: fixed;
+    bottom: 40px; /* Position above the bottom bar with some spacing */
+    left: 140px; /* Position within sidebar width */
     transform: translateX(-50%);
     width: 40px;
     height: 40px;
@@ -115,8 +117,11 @@ body, html, #root {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, left 0.3s ease;
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    z-index: 1001;
+    border: none;
+    outline: none;
 }
 
 .sidebar-toggle:hover {
@@ -126,14 +131,11 @@ body, html, #root {
 
 .toggle-icon {
     color: white;
-    font-size: 1.3rem;
-    font-weight: bold;
-    line-height: 1;
-    transition: transform 0.3s ease;
+    font-size: 1rem;
 }
 
 .sidebar.collapsed .sidebar-toggle {
-    left: 50%;
+    left: 40px; /* Position within collapsed sidebar width */
 }
 .content {
     flex-grow: 1;
@@ -143,7 +145,8 @@ body, html, #root {
     overflow-y: auto;
     background: #f3f7f6;
     transition: margin-left 0.3s ease;
-    height: 100%;
+    height: calc(100vh - 30px); /* Account for smaller bottom bar */
+    max-height: calc(100vh - 30px);
 }
 .header {
     font-weight: 700;
@@ -194,6 +197,9 @@ body, html, #root {
     padding: 1.5rem 2rem;
     box-shadow: 0 0 15px rgba(0,0,0,0.05);
     user-select: none;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
 }
 .activity-header {
     font-weight: 700;
@@ -330,7 +336,7 @@ body, html, #root {
 .users-section {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100vh - 8rem);
   overflow: hidden;
 }
 
@@ -339,6 +345,7 @@ body, html, #root {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
 }
 
 .users-table-container {
@@ -574,31 +581,96 @@ body, html, #root {
   cursor: not-allowed;
   transform: none;
 }
+/*  Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  flex: 1;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  background: linear-gradient(135deg, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-subtitle {
+  margin: 0.25rem 0 0 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 
 /* History table specific styles */
 .users-table th:nth-child(1) { /* ID column */
-  width: 60px;
-}
-
-.users-table th:nth-child(2) { /* User ID column */
   width: 80px;
 }
 
-.users-table th:nth-child(3) { /* Username column */
-  width: 150px;
+.users-table th:nth-child(2) { /* User ID column */
+  width: 100px;
 }
 
-.users-table th:nth-child(4) { /* Action column */
+.users-table th:nth-child(3) { /* Username column */
   width: 200px;
 }
 
+.users-table th:nth-child(4) { /* Action column */
+  width: 350px;
+}
+
 .users-table th:nth-child(5) { /* Timestamp column */
-  width: 180px;
+  width: 200px;
 }
 
 .users-table th:nth-child(6) { /* Metadata column */
   width: auto;
-  min-width: 150px;
+  min-width: 200px;
 }
 
 /* Action badges */
@@ -682,4 +754,19 @@ details pre {
 
 .users-section .form-divider {
   margin: 16px 0; /* Reduced from 18px */
+}
+
+/* Dashboard Content Wrapper */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }

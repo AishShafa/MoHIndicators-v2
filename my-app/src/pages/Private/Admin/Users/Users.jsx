@@ -7,6 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Register from "./Register";
 import History from "./History";
+import "./Users.css";
 
 const Users = ({ activeUserSubsection, setActiveUserSubsection }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -262,13 +263,15 @@ const Users = ({ activeUserSubsection, setActiveUserSubsection }) => {
       )}
 
       {activeUserSubsection === "Manage Users" && (
-        <div className="users-section">
-          <div className="header-row">
-            <div className="page-title">
-              Manage Users
-              <div className="page-title-underline" />
-            </div>
+          <div className="admin-dashboard-container">
+        <div className="dashboard-header">
+          <div className="header-content">
+            <h1 className="dashboard-title">Manage Users</h1>
+            <p className="dashboard-subtitle">
+              Manage and view user accounts, roles, and details.
+            </p>
           </div>
+        </div>
           <div className="health-data-form users-content">
             
             {/* Search and Filter Section */}

@@ -1,21 +1,28 @@
 .bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #10b981;
   color: white;
-  padding: 1rem 0;
+  padding: 0.25rem 0;
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.875rem;
   text-align: center;
   font-weight: 600;
   box-shadow: 0 -2px 8px rgba(16, 185, 129, 0.08);
+  z-index: 1000;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 
 .static-bottom-bar {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 56px;
   background: #10b981;
   color: #fff;
   display: flex;

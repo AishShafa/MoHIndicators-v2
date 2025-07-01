@@ -3,7 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/SaveOutlined";
 import "./HealthDataForm.css";
 
-const HealthDataForm = () => {
+const HealthDataForm = ({onNavigateBack}) => {
   const [formData, setFormData] = useState({
     healthIndicator: "",
     location: "",
@@ -28,20 +28,23 @@ const HealthDataForm = () => {
   };
 
   return (
-    <>
-      <div className="header-row">
-        <button className="back-button">
+      <div className="admin-dashboard-container">
+      <div className="dashboard-header">
+        <div className="header-content">
+          <h1 className="dashboard-title">Add New Health Data</h1>
+          <p className="dashboard-subtitle">
+            Create a new account along with their username, email, password and role.
+          </p>
+          </div>
+          <div className="header-actions">
+          <button className="back-button" onClick={() => onNavigateBack && onNavigateBack()}>
           <ArrowBackIcon style={{ marginRight: 8, verticalAlign: "middle" }} />
           Back to Health Data
         </button>
-        <div className="page-title">
-          Add New Health Data
-          <div className="page-title-underline" />
         </div>
       </div>
       <div className="health-data-form">
         <form onSubmit={handleSubmit}>
-          <div className="form-title">Health Indicator Information</div>
           <div className="form-section">
             <div className="form-group">
               <label htmlFor="healthIndicator">Health Indicator *</label>
@@ -193,7 +196,7 @@ const HealthDataForm = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
