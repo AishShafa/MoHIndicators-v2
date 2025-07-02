@@ -31,7 +31,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -1rem;
+  margin-top: 0rem;
   margin-bottom: 1rem;
   background: white;
   padding: 1.5rem 2rem;
@@ -97,7 +97,7 @@
   color: #6b7280dc;
   font-size: 0.69rem;
   margin-right: 0.5rem;
-  margin-top: -0.9rem;
+  margin-top: 0rem;
   margin-bottom: 0.5rem;
   font-style: italic;
 }

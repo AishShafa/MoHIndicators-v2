@@ -147,6 +147,8 @@ body, html, #root {
     transition: margin-left 0.3s ease;
     height: calc(100vh - 30px); /* Account for smaller bottom bar */
     max-height: calc(100vh - 30px);
+    width: 100%;
+    max-width: 100%;
 }
 .header {
     font-weight: 700;

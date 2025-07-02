@@ -1,11 +1,27 @@
 .health-data-form {
-  max-width: 1800px;
-  max-height: 700px;
-  padding: 30px;
+  max-width: 100%;
+  width: 100%;
+  padding: 20px;
   background: white;
   border-radius: 12px;
   margin-top: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  flex: 1;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  margin-top: 0;
+  flex-shrink: 0;
 }
 
 .back-button {
@@ -46,6 +62,7 @@
 
 .admin-dashboard-header {
   display: flex;
+  width: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
@@ -57,20 +74,12 @@
 .admin-dashboard-container {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  margin-top: 10px;
-}
-
-/* Header */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  min-height: calc(100vh - 30px);
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+  padding-top: 0;
   width: 100%;
-  background: white;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
 }
 
 .header-content {
@@ -122,7 +131,7 @@
 .form-divider {
   height: 1px;
   background: #e9ecef;
-  margin: 18px 0;
+  margin: 15px 0;
 }
 
 .form-group {
@@ -212,4 +221,645 @@
 
 .save-btn:hover {
   background-color: #10b981;
+}
+
+/* ==== CHARTS SECTION STYLES ==== */
+
+.charts-section {
+  margin: 20px 0;
+}
+
+.charts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.add-chart-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.add-chart-btn:hover {
+  background-color: #059669;
+}
+
+.no-charts-message {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  color: #6b7280;
+}
+
+.no-charts-message p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.charts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chart-header:hover {
+  background-color: #f1f3f4;
+}
+
+.chart-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chart-number {
+  font-weight: 600;
+  color: #10b981;
+  font-size: 0.9rem;
+}
+
+.chart-title-text {
+  font-weight: 500;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.chart-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remove-chart-btn {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.remove-chart-btn:hover {
+  background-color: #fee2e2;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.expand-btn:hover {
+  color: #374151;
+}
+
+.chart-content {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #f3f4f6;
+}
+
+.chart-form-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+}
+
+.chart-form-section .form-group.full-width {
+  grid-column: span 2;
+}
+
+.color-input {
+  width: 60px !important;
+  height: 40px !important;
+  padding: 2px !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+}
+
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 4px;
+}
+
+/* ==== EDIT CHART BUTTON STYLES ==== */
+
+.edit-chart-btn {
+  background: none;
+  border: none;
+  color: #10b981;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.edit-chart-btn:hover {
+  background-color: #d1fae5;
+}
+
+/* ==== EDIT CHART MODAL STYLES ==== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.edit-chart-modal {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-modal-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.modal-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==== TAB STYLES ==== */
+
+.modal-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #374151;
+  background-color: #f3f4f6;
+}
+
+.tab-btn.active {
+  color: #10b981;
+  border-bottom-color: #10b981;
+  background-color: white;
+}
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.tab-panel {
+  display: none;
+  padding: 32px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== MODAL FORM STYLES ==== */
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+}
+
+.modal-form-grid .form-group.full-width {
+  grid-column: span 2;
+}
+
+.modal-form-grid .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.modal-form-grid .form-group input,
+.modal-form-grid .form-group select,
+.modal-form-grid .form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.modal-form-grid .form-group input:focus,
+.modal-form-grid .form-group select:focus,
+.modal-form-grid .form-group textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* ==== DATA UPLOAD SECTION STYLES ==== */
+
+.data-upload-section {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.excel-upload-container {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.excel-upload-section {
+  margin-bottom: 1rem;
+}
+
+.data-preview-summary {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 0.9rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.columns-preview {
+  margin-top: 1rem;
+}
+
+.columns-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.column-tag {
+  background-color: #e0f2fe;
+  color: #0277bd;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ==== CHART PREVIEW STYLES ==== */
+
+.mini-chart-preview {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.preview-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.preview-container {
+  background-color: white;
+  border-radius: 6px;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.chart-preview-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+}
+
+.chart-preview-section h5 {
+  margin: 0 0 1rem 0;
+  color: #059669;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ==== QUICK MAPPING STYLES ==== */
+
+.quick-mapping {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fafbfc;
+  border: 1px solid #e1e5e9;
+  border-radius: 6px;
+}
+
+.quick-mapping > label {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.mapping-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mapping-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mapping-field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.mapping-field select {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background-color: white;
+}
+
+.mapping-field select:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* ==== NO DATA MESSAGE STYLES ==== */
+
+.no-data-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fef3c7;
+  border: 2px dashed #f59e0b;
+  border-radius: 8px;
+  color: #92400e;
+}
+
+.no-data-message p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ==== MODAL ENHANCEMENTS ==== */
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.tab-panel {
+  display: none;
+  padding: 1.5rem 0;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #1f2937;
+  background-color: #f9fafb;
+}
+
+.tab-btn.active {
+  color: #10b981;
+  border-bottom-color: #10b981;
+  font-weight: 600;
+}
+
+/* ==== RESPONSIVE DESIGN ==== */
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 10px;
+  }
+  
+  .edit-chart-modal {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+  
+  .modal-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .modal-form-grid .form-group.full-width {
+    grid-column: span 1;
+  }
+  
+  .tab-buttons {
+    overflow-x: auto;
+  }
+  
+  .tab-btn {
+    white-space: nowrap;
+    min-width: 120px;
+  }
+  
+  .modal-header,
+  .modal-footer,
+  .tab-panel {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .tab-btn {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+  }
 }

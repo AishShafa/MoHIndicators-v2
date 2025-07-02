@@ -52,7 +52,7 @@ const App = () => {
             path="/login"
             element={isLoggedIn ? <Navigate to="/admin" /> : <Login />}
           />
-          <Route path="/about" element={<SamplePage />} />
+          <Route path="/about" element={<Admin />} />
           <Route path="/home" element={<Dashboard />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/register" element={<RegisterPage />} />
