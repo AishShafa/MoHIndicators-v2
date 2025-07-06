@@ -22,7 +22,7 @@ const db = knex({
     host: 'localhost',
     user: 'postgres',
     password: 'Moh1234',
-    database: 'health_indicators',
+    database: 'Moh_Indicators',
   },
 });
 

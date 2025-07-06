@@ -80,6 +80,7 @@
   padding-top: 0;
   width: 100%;
   max-width: 100%;
+  margin-bottom: 60px;
 }
 
 .header-content {
@@ -207,6 +208,7 @@
 .cancel-btn {
   background-color: #f8f9fa;
   color: #5a6169;
+  margin: 20px;
   border: 1px solid #e1e5eb;
 }
 
@@ -216,6 +218,7 @@
 
 .save-btn {
   background-color: #10b981;
+  margin: 20px;
   color: white;
 }
 
@@ -301,7 +304,7 @@
 }
 
 .chart-header:hover {
-  background-color: #f1f3f4;
+  background-color: #ffffff;
 }
 
 .chart-title-section {
@@ -423,18 +426,191 @@
   justify-content: center;
   z-index: 1000;
   padding: 20px;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-layout {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1600px;
+  height: 90vh;
+  max-height: 940px;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .edit-chart-modal {
   background: white;
   border-radius: 12px;
-  width: 100%;
+  width: 60%;
+  min-width: 600px;
   max-width: 900px;
-  max-height: 90vh;
-  overflow: hidden;
+  height: 100%;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
+}
+
+.chart-preview-panel {
+  background: white;
+  border-radius: 12px;
+  width: 40%;
+  min-width: 450px;
+  height: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chart-preview-header {
+  padding: 24px 32px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 12px 12px 0 0;
+}
+
+.chart-preview-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.preview-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.chart-preview-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background: white;
+}
+
+/* ==== CHART PREVIEW PANEL ENHANCEMENTS ==== */
+
+.chart-preview-container .chart-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  color: #6b7280;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.chart-preview-container .chart-placeholder p {
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Ensure chart preview looks good in different states */
+.chart-preview-panel .recharts-wrapper {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border: 1px solid #f3f4f6;
+}
+
+/* Loading state for chart preview */
+.chart-preview-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  color: #6b7280;
+}
+
+.chart-preview-loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-top: 2px solid #10b981;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Preview panel scrollbar styling */
+.chart-preview-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chart-preview-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.chart-preview-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.chart-preview-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .modal-layout {
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .edit-chart-modal,
+  .chart-preview-panel {
+    width: 100%;
+    min-width: auto;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .edit-chart-modal {
+    max-height: 500px;
+  }
+  
+  .chart-preview-panel {
+    max-height: 600px;
+  }
 }
 
 .modal-header {
@@ -473,7 +649,7 @@
 
 .modal-content {
   flex: 1;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
 }
@@ -517,13 +693,14 @@
 
 .tab-content {
   flex: 1;
+  margin-top: -40px;
   overflow-y: auto;
   position: relative;
 }
 
 .tab-panel {
   display: none;
-  padding: 32px;
+  margin: 30px;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -664,10 +841,13 @@
 
 .mini-chart-preview {
   margin-top: 1.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
+  height: 800px;
+  width: 100%;
+  min-width: 600px;
 }
 
 .preview-header {
@@ -685,18 +865,25 @@
 }
 
 .preview-container {
-  background-color: white;
+  background-color: transp;
   border-radius: 6px;
-  padding: 0.5rem;
-  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border: 1px solid transparent;
+  height: 600px;
+  width: 100%;
+  min-width: 600px;
+  overflow: visible;
 }
 
 .chart-preview-section {
   margin-top: 1.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: #f0fdf4;
   border: 1px solid #bbf7d0;
   border-radius: 8px;
+  min-height: 620px;
+  width: 100%;
+  min-width: 600px;
 }
 
 .chart-preview-section h5 {
@@ -862,4 +1049,654 @@
     padding: 12px 16px;
     font-size: 0.8rem;
   }
+}
+
+/* ==== GROUPED COLUMN SELECT STYLES ==== */
+
+.form-group select optgroup {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #374151;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 4px 8px;
+}
+
+.form-group select optgroup option {
+  font-weight: 400;
+  color: #1f2937;
+  background-color: white;
+  padding: 6px 12px;
+  margin-left: 8px;
+}
+
+.form-group select optgroup:first-child {
+  margin-top: 4px;
+}
+
+.form-group select optgroup:last-child {
+  border-bottom: none;
+}
+
+/* Enhance optgroup styling for better visual separation */
+.mapping-field select optgroup,
+.modal-form-grid select optgroup {
+  font-style: normal;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+.mapping-field select optgroup[label="Numeric Data"] {
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  color: #059669;
+}
+
+.mapping-field select optgroup[label="Date/Time"] {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #2563eb;
+}
+
+.mapping-field select optgroup[label="Categorical"] {
+  background: linear-gradient(135deg, #fef3c7, #fef3c7);
+  color: #d97706;
+}
+
+.mapping-field select optgroup[label="Text/Description"] {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  color: #7c3aed;
+}
+
+.mapping-field select optgroup[label="Other"] {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #64748b;
+}
+
+/* Improve option spacing within groups */
+.mapping-field select option,
+.modal-form-grid select option {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mapping-field select option:last-child {
+  border-bottom: none;
+}
+
+/* ==== RECOMMENDATION HINTS STYLES ==== */
+
+.recommendation-hint {
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 4px;
+}
+
+/* Enhanced optgroup styling with star indicators */
+.form-group select optgroup[label*="⭐"] {
+  font-weight: 700;
+  position: relative;
+}
+
+.form-group select optgroup[label*="⭐"]::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Recommended group highlighting */
+.mapping-field select optgroup[label*="⭐"],
+.modal-form-grid select optgroup[label*="⭐"] {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+  border: 1px solid #10b981;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2);
+}
+
+/* Tooltip-style recommendation info */
+.form-group label {
+  position: relative;
+}
+
+.form-group label .recommendation-hint:hover::after {
+  content: "These column types work best with this chart type";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0.95;
+}
+
+/* ==== COLUMN GROUPING INFO STYLES ==== */
+
+.column-grouping-info {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.column-grouping-info .info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #0c4a6e;
+}
+
+.column-grouping-info .info-icon {
+  font-size: 1.1rem;
+}
+
+.column-grouping-info .info-text {
+  margin: 8px 0;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.column-grouping-info .grouping-legend {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.column-grouping-info .grouping-legend li {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.column-grouping-info .legend-item {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  margin-right: 8px;
+  min-width: 100px;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.column-grouping-info .legend-item.numeric {
+  background-color: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.column-grouping-info .legend-item.datetime {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+}
+
+.column-grouping-info .legend-item.categorical {
+  background-color: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fcd34d;
+}
+
+.column-grouping-info .legend-item.text {
+  background-color: #e9d5ff;
+  color: #7c3aed;
+  border: 1px solid #c4b5fd;
+}
+
+.column-grouping-info .info-note {
+  margin: 12px 0 0 0;
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ==== DATA GROUPING SECTION STYLES ==== */
+
+.grouping-section {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.grouping-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.grouping-help {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 8px;
+}
+
+.grouping-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.grouping-controls .form-group {
+  margin-bottom: 0;
+}
+
+.grouping-controls .form-group label {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.grouping-controls input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* ==== DATA PROCESSING TAB STYLES ==== */
+
+.processing-controls {
+  padding: 20px 0;
+}
+
+.processing-controls h4 {
+  margin: 0 0 8px 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.section-description {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.field-help {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+  font-style: italic;
+}
+
+/* ==== GROUPING PREVIEW STYLES ==== */
+
+.grouping-preview {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+  
+}
+
+.grouping-preview h5 {
+  margin: 0 0 12px 0;
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.example-content {
+  font-size: 0.85rem;
+}
+
+.before-after {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.before, .after {
+  flex: 1;
+  min-width: 200px;
+}
+
+.arrow {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #10b981;
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+.data-sample {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.data-row {
+  padding: 4px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.data-row:last-child {
+  border-bottom: none;
+}
+
+/* ==== RESPONSIVE GROUPING CONTROLS ==== */
+
+@media (max-width: 768px) {
+  .grouping-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .before-after {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .arrow {
+    align-self: center;
+    margin: 8px 0;
+    transform: rotate(90deg);
+  }
+}
+
+/* ==== CHECKBOX STYLING ==== */
+
+.modal-form-grid input[type="checkbox"] {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin-right: 8px !important;
+  transform: scale(1.1);
+  accent-color: #10b981;
+}
+
+.form-group label input[type="checkbox"] {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+/* ==== ENHANCED GROUPING PREVIEW STYLES ==== */
+
+.no-grouping-message {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.no-grouping-message p {
+  margin: 0 0 12px 0;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.no-grouping-message ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #374151;
+}
+
+.no-grouping-message li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+  width: auto;
+}
+
+/* Enhanced field help styling */
+.field-help {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 6px 0 0 0;
+  line-height: 1.4;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 4px;
+  border-left: 3px solid #10b981;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 20px 32px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  border-radius: 0 0 12px 12px;
+  margin-top: auto;
+}
+
+.modal-footer .cancel-btn,
+.modal-footer .save-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin: 0;
+}
+
+.modal-footer .cancel-btn {
+  background-color: #f8f9fa;
+  color: #5a6169;
+  border: 1px solid #e1e5eb;
+}
+
+.modal-footer .cancel-btn:hover {
+  background-color: #e9ecef;
+}
+
+.modal-footer .save-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.modal-footer .save-btn:hover {
+  background-color: #059669;
+}
+
+/* Smart Column Grouping Tooltip Styles */
+.mapping-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.smart-grouping-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.smart-grouping-tooltip .info-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: #e0f2fe;
+  border: 1px solid #0284c7;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+  font-size: 12px;
+  cursor: help;
+  transition: all 0.2s ease;
+}
+
+.smart-grouping-tooltip .info-icon:hover {
+  background: #0284c7;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Enhanced tooltip styling */
+.smart-grouping-tooltip .info-icon[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: normal;
+  width: 320px;
+  text-align: left;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.smart-grouping-tooltip .info-icon[title]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+  z-index: 1001;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ==== DATA TABLE ALL COLUMNS STYLES ==== */
+
+.data-table-all-columns {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+}
+
+.data-table-all-columns table {
+  min-width: 100%;
+  width: max-content;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table-all-columns th {
+  position: sticky;
+  top: 0;
+  background: #f8f9fa !important;
+  z-index: 1;
+  white-space: nowrap;
+  min-width: 120px;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.data-table-all-columns td {
+  white-space: nowrap;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.data-table-all-columns::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.data-table-all-columns::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.data-table-all-columns::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.data-table-all-columns::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* ==== TABLE DISPLAY MODE INDICATOR ==== */
+
+.table-mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.table-mode-indicator.all-columns {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ==== CHECKBOX FIELD HELP STYLES ==== */
+
+.field-help {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+  line-height: 1.3;
 }

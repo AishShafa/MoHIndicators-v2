@@ -5,14 +5,14 @@ const pool = new Pool({
     password: "Moh1234",
     host: "localhost",
     port: 5432,
-    database: "health_indicators"
+    database: "Moh_Indicators"
 
 
 });
 
 
 
-pool.query ("CREATE DATABASE health_indicators;")
+pool.query ("CREATE DATABASE Moh_Indicators;")
     .then ((Response) => {
     console.log("Database created successfully", Response);
 })
