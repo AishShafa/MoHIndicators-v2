@@ -1,16 +1,24 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNotification } from "../../contexts/NotificationContext";
 import "./TopNavbar.css";
 import "../../pages/Private/Login/Login.css"; 
 
 const TopNavbar = ({ userData, isLoggedIn, onLogout }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { hasNewData, markDataAsViewed } = useNotification();
 
   const logout = () => {
     localStorage.clear();
     if (onLogout) onLogout();
     navigate("/login");
+  };
+
+  const handleResultsClick = () => {
+    if (hasNewData) {
+      markDataAsViewed();
+    }
   };
 
   return (
@@ -53,10 +61,12 @@ const TopNavbar = ({ userData, isLoggedIn, onLogout }) => {
                   HOME
                 </Link>
                 <Link
-                  to="/"
-                  className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+                  to="/results"
+                  className={`nav-link ${location.pathname === "/" || location.pathname === "/results" ? "active" : ""}`}
+                  onClick={handleResultsClick}
                 >
                   RESULTS
+                  {hasNewData && <span className="notification-dot"></span>}
                 </Link>
                 <Link
                   to="/about"

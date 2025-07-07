@@ -68,7 +68,7 @@ const groupByOptions = [
   "Age", "Gender", "Region", "Year"
 ];
 
-export default function MetricBarChart({ data, filters, selectedMetricType }) {
+export default function MetricBarChart({ data, filters, selectedMetricType, groupBy = "Age" }) {
   const [selectedMetric, setSelectedMetric] = useState("Value");
 
   if (!data || !Array.isArray(data)) return null;

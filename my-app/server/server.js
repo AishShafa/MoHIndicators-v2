@@ -31,7 +31,9 @@ const pool = new Pool({
 });
 
 app.use(cors());
-app.use(bodyParser.json());
+// Increase the payload size limit to handle large Excel data
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Middleware to extract user from token and log actions
 app.use(async (req, res, next) => {
@@ -446,6 +448,319 @@ app.get('/admin/dashboard-stats', verifyToken, verifyAdmin, async (req, res) => 
     } catch (err) {
         console.error('Error fetching dashboard stats:', err);
         res.status(500).json({ error: 'Server error while fetching dashboard statistics' });
+    }
+});
+
+// ===================== PUBLIC HEALTH DATA ENDPOINTS =====================
+
+// Get all public health data forms (no authentication required)
+app.get('/api/public/health-forms', async (req, res) => {
+    try {
+        // Query to get all health data forms that are marked as public or completed
+        const result = await pool.query(`
+            SELECT 
+                id,
+                title,
+                description,
+                health_indicator,
+                location,
+                gender,
+                region,
+                metric,
+                age_group,
+                year,
+                value,
+                additional_notes,
+                charts,
+                excel_data,
+                excel_columns,
+                data_row_count,
+                data_truncated,
+                submission_snapshot,
+                created_at,
+                updated_at
+            FROM health_data_forms 
+            WHERE is_public = true OR status = 'completed'
+            ORDER BY created_at DESC
+        `);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching public health forms:', err);
+        res.status(500).json({ error: 'Server error while fetching health data forms' });
+    }
+});
+
+// Get a specific public health data form by ID
+app.get('/api/public/health-forms/:id', async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        const result = await pool.query(`
+            SELECT 
+                id,
+                title,
+                description,
+                health_indicator,
+                location,
+                gender,
+                region,
+                metric,
+                age_group,
+                year,
+                value,
+                additional_notes,
+                charts,
+                excel_data,
+                excel_columns,
+                created_at,
+                updated_at
+            FROM health_data_forms 
+            WHERE id = $1 AND (is_public = true OR status = 'completed')
+        `, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Health data form not found or not public' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error fetching health form:', err);
+        res.status(500).json({ error: 'Server error while fetching health data form' });
+    }
+});
+
+// Get public health data statistics
+app.get('/api/public/health-stats', async (req, res) => {
+    try {
+        // Total forms
+        const totalFormsResult = await pool.query(`
+            SELECT COUNT(*) FROM health_data_forms 
+            WHERE is_public = true OR status = 'completed'
+        `);
+        
+        // Forms by indicator
+        const byIndicatorResult = await pool.query(`
+            SELECT health_indicator, COUNT(*) as count 
+            FROM health_data_forms 
+            WHERE (is_public = true OR status = 'completed') AND health_indicator IS NOT NULL
+            GROUP BY health_indicator 
+            ORDER BY count DESC
+        `);
+        
+        // Forms by location
+        const byLocationResult = await pool.query(`
+            SELECT location, COUNT(*) as count 
+            FROM health_data_forms 
+            WHERE (is_public = true OR status = 'completed') AND location IS NOT NULL
+            GROUP BY location 
+            ORDER BY count DESC
+        `);
+        
+        // Forms by year
+        const byYearResult = await pool.query(`
+            SELECT year, COUNT(*) as count 
+            FROM health_data_forms 
+            WHERE (is_public = true OR status = 'completed') AND year IS NOT NULL
+            GROUP BY year 
+            ORDER BY year DESC
+        `);
+
+        // Recent forms
+        const recentFormsResult = await pool.query(`
+            SELECT id, title, health_indicator, location, year, created_at
+            FROM health_data_forms 
+            WHERE is_public = true OR status = 'completed'
+            ORDER BY created_at DESC 
+            LIMIT 5
+        `);
+
+        res.json({
+            totalForms: parseInt(totalFormsResult.rows[0].count),
+            byIndicator: byIndicatorResult.rows,
+            byLocation: byLocationResult.rows,
+            byYear: byYearResult.rows,
+            recentForms: recentFormsResult.rows
+        });
+    } catch (err) {
+        console.error('Error fetching health stats:', err);
+        res.status(500).json({ error: 'Server error while fetching health statistics' });
+    }
+});
+
+// ===================== PRIVATE HEALTH DATA ENDPOINTS =====================
+
+// Save health data form (protected - authenticated users only)
+app.post('/api/health-forms', verifyToken, async (req, res) => {
+    const {
+        title,
+        description,
+        healthIndicator,
+        location,
+        gender,
+        region,
+        metric,
+        ageGroup,
+        year,
+        value,
+        additionalNotes,
+        charts,
+        excelData,
+        excelColumns,
+        isPublic = false,
+        dataRowCount,
+        dataTruncated,
+        submissionSnapshot
+    } = req.body;
+
+    try {
+        const result = await pool.query(`
+            INSERT INTO health_data_forms (
+                title, description, health_indicator, location, gender, region,
+                metric, age_group, year, value, additional_notes, charts,
+                excel_data, excel_columns, is_public, created_by, status,
+                data_row_count, data_truncated, submission_snapshot
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
+            RETURNING *
+        `, [
+            title, description, healthIndicator, location, gender, region,
+            metric, ageGroup, year, value, additionalNotes,
+            charts ? JSON.stringify(charts) : null,
+            excelData ? JSON.stringify(excelData) : null,
+            excelColumns ? JSON.stringify(excelColumns) : null,
+            isPublic, req.user.userId, 'completed', // Set status to completed for public forms
+            dataRowCount || 0,
+            dataTruncated || false,
+            submissionSnapshot ? JSON.stringify(submissionSnapshot) : null
+        ]);
+
+        // Log the action
+        await logUserAction(req.user.userId, 'POST /api/health-forms', { 
+            formId: result.rows[0].id,
+            title: title,
+            chartsCount: charts ? charts.length : 0,
+            dataRowCount: dataRowCount || 0
+        });
+
+        res.status(201).json({
+            message: 'Health data form saved successfully',
+            form: result.rows[0]
+        });
+    } catch (err) {
+        console.error('Error saving health form:', err);
+        res.status(500).json({ error: 'Server error while saving health data form' });
+    }
+});
+
+// Update health data form (protected - authenticated users only)
+app.put('/api/health-forms/:id', verifyToken, async (req, res) => {
+    const { id } = req.params;
+    const {
+        title,
+        description,
+        healthIndicator,
+        location,
+        gender,
+        region,
+        metric,
+        ageGroup,
+        year,
+        value,
+        additionalNotes,
+        charts,
+        excelData,
+        excelColumns,
+        isPublic,
+        status
+    } = req.body;
+
+    try {
+        // Check if form exists and user has permission
+        const existingForm = await pool.query(
+            'SELECT * FROM health_data_forms WHERE id = $1 AND created_by = $2',
+            [id, req.user.userId]
+        );
+
+        if (existingForm.rows.length === 0) {
+            return res.status(404).json({ error: 'Health data form not found or access denied' });
+        }
+
+        const result = await pool.query(`
+            UPDATE health_data_forms SET
+                title = $1, description = $2, health_indicator = $3, location = $4,
+                gender = $5, region = $6, metric = $7, age_group = $8, year = $9,
+                value = $10, additional_notes = $11, charts = $12, excel_data = $13,
+                excel_columns = $14, is_public = $15, status = $16, updated_at = NOW()
+            WHERE id = $17 AND created_by = $18
+            RETURNING *
+        `, [
+            title, description, healthIndicator, location, gender, region,
+            metric, ageGroup, year, value, additionalNotes,
+            charts ? JSON.stringify(charts) : null,
+            excelData ? JSON.stringify(excelData) : null,
+            excelColumns ? JSON.stringify(excelColumns) : null,
+            isPublic, status, id, req.user.userId
+        ]);
+
+        // Log the action
+        await logUserAction(req.user.userId, 'PUT /api/health-forms', { 
+            formId: id,
+            title: title 
+        });
+
+        res.json({
+            message: 'Health data form updated successfully',
+            form: result.rows[0]
+        });
+    } catch (err) {
+        console.error('Error updating health form:', err);
+        res.status(500).json({ error: 'Server error while updating health data form' });
+    }
+});
+
+// Get user's health data forms (protected - authenticated users only)
+app.get('/api/health-forms', verifyToken, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT * FROM health_data_forms 
+            WHERE created_by = $1 
+            ORDER BY created_at DESC
+        `, [req.user.userId]);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching user health forms:', err);
+        res.status(500).json({ error: 'Server error while fetching health data forms' });
+    }
+});
+
+// Delete health data form (protected - authenticated users only)
+app.delete('/api/health-forms/:id', verifyToken, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await pool.query(
+            'DELETE FROM health_data_forms WHERE id = $1 AND created_by = $2 RETURNING *',
+            [id, req.user.userId]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Health data form not found or access denied' });
+        }
+
+        // Log the action
+        await logUserAction(req.user.userId, 'DELETE /api/health-forms', { 
+            formId: id,
+            title: result.rows[0].title 
+        });
+
+        res.json({
+            message: 'Health data form deleted successfully',
+            form: result.rows[0]
+        });
+    } catch (err) {
+        console.error('Error deleting health form:', err);
+        res.status(500).json({ error: 'Server error while deleting health data form' });
     }
 });
 

@@ -5,12 +5,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
+// Context Providers
+import { NotificationProvider } from "./contexts/NotificationContext";
+
 // Components
 import TopNavBar from "./constants/TopNavbar/TopNavbar";
-import BottomBar from './constants/BottomBar/BottomBar';  
+import BottomBar from './constants/BottomBar/BottomBar';
+import NotificationManager from "./components/NotificationManager/NotificationManager";  
 
 // Pages
 import Dashboard from "./pages/Public/Dashboard/Dashboard";
+import Results from "./pages/Public/Results/Results";
 import SamplePage from "./pages/Public/Dashboard/dashboardsample";
 
 const Login = lazy(() => import("./pages/Private/Login/Login"));
@@ -43,31 +48,36 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <TopNavBar userData={userData} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route
-            path="/login"
-            element={isLoggedIn ? <Navigate to="/admin" /> : <Login />}
-          />
-          <Route path="/about" element={<Admin />} />
-          <Route path="/home" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-      <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        closeOnClick
-        theme="colored"
-      /> 
-      <BottomBar />
-    </Router>
+    <NotificationProvider>
+      <Router>
+        <TopNavBar userData={userData} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <NotificationManager />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Results />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/admin" /> : <Login />}
+            />
+            <Route path="/about" element={<Admin />} />
+            <Route path="/home" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        <ToastContainer
+          position="top-center"
+          autoClose={1000}
+          hideProgressBar={true}
+          closeOnClick
+          theme="colored"
+        /> 
+        <BottomBar />
+      </Router>
+    </NotificationProvider>
   );
 };
 
